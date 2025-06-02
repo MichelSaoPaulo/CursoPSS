@@ -7,14 +7,18 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
       display: flex;
       height: 100vh;
       overflow: hidden;
     }
+
     header {
       position: fixed;
-      top: 0; left: 0; right: 0;
+      top: 50px;
+      left: 0;
+      right: 0;
       background: #004080;
       color: white;
       padding: 15px 20px;
@@ -23,18 +27,21 @@
       z-index: 1000;
       text-align: center;
     }
+
     nav {
       width: 250px;
       background: #f0f0f0;
-      padding-top: 80px;
+      padding-top: 100px;
       overflow-y: auto;
       border-right: 1px solid #ccc;
     }
+
     nav ul {
       list-style: none;
       padding-left: 0;
       margin: 0;
     }
+
     nav > ul > li {
       padding: 12px 20px;
       border-bottom: 1px solid #ddd;
@@ -42,30 +49,44 @@
       font-weight: bold;
       text-align: left;
     }
+
     nav > ul > li:hover {
       background: #ddd;
     }
+
     nav ul.submenu {
       padding-left: 20px;
       background: #fafafa;
       width: 100%;
       display: none;
     }
+
     nav ul.submenu li {
-      padding: 8px 0;
+      padding: 8px 5px;
       cursor: pointer;
       font-weight: normal;
       color: #333;
       display: flex;
       align-items: center;
+      gap: 10px;
     }
+
+    .video-title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     nav ul.submenu li:hover {
       text-decoration: underline;
     }
+
     nav ul.submenu li.active-theme {
       color: #004080;
       font-weight: bold;
     }
+
     nav ul.submenu li .circle {
       width: 12px;
       height: 12px;
@@ -75,18 +96,33 @@
       flex-shrink: 0;
       transition: background-color 0.3s ease;
     }
+
     nav ul.submenu li.active-theme .circle {
       background: green !important;
     }
+
+    nav ul.submenu li button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: transform 0.2s ease;
+    }
+
+    nav ul.submenu li button:hover {
+      transform: scale(1.2);
+    }
+
     main {
       flex-grow: 1;
-      padding: 80px 20px 20px 20px;
+      padding: 120px 20px 20px 20px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       background: #fff;
     }
+
     #video-player {
       width: 100%;
       max-width: 900px;
@@ -95,23 +131,104 @@
       margin-bottom: 20px;
       display: none;
     }
+
     #video-player iframe {
       width: 100%;
       height: 100%;
       border: none;
     }
+
     #message {
       font-size: 1.2em;
       color: #555;
       margin-bottom: 20px;
       text-align: center;
     }
+
+    #imagens-iniciais {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    #imagens-iniciais iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    #intro-text {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .home-button {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 2000;
+    }
+
+    .home-button button {
+      font-size: 1.5em;
+      padding: 6px 12px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .logout-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 2000;
+}
+
+.logout-button button {
+  font-size: 1.2em;
+  padding: 6px 12px;
+  background-color: #800000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#intro-text {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #004080;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+  margin-bottom: 10px;
+}
+
+
   </style>
 </head>
 <body>
 
+<div class="home-button">
+  <button onclick="voltarParaInicio()">🏠 Início</button>
+</div>
+<div class="logout-button">
+  <button onclick="logout()">Logout</button>
+</div>
+
+
 <header>
-  Revisão para os professores inscritos PSS - 2025
+  Revisão para os professores inscritos PSS - 2025 - 
+  Material atualizado semanalmente
 </header>
 
 <nav>
@@ -122,84 +239,60 @@
   <div id="video-player">
     <iframe id="player-iframe" src="" allowfullscreen allow="autoplay"></iframe>
   </div>
-  <div id="message">Selecione um tema no menu lateral para assistir ao vídeo.</div>
+
+  <div id="message">Selecione um tema no menu lateral para seguir com seus estudos.</div>
+
+  <div id="intro-text">Abaixo algumas dicas para sua aula prática</div>
+
+  <div id="imagens-iniciais">
+    <iframe src="https://www.youtube.com/embed/VcBR6YpJWqk" title="Vídeo 1"></iframe>
+    <iframe src="https://www.youtube.com/embed/YPk06uwp5RE" title="Vídeo 2"></iframe>
+    <iframe src="https://www.youtube.com/embed/t0FDEjXCC8Q" title="Vídeo 3"></iframe>
+    <iframe src="https://www.youtube.com/embed/TCyfS3tAV-M" title="Vídeo 4"></iframe>
+    <iframe src="https://www.youtube.com/embed/xDBM27QyaqQ" title="Vídeo 5"></iframe>
+    <iframe src="https://www.youtube.com/embed/cmLgaVI9CVM" title="Vídeo 6"></iframe>
+  </div>
 </main>
 
 <script>
 const modulos = {
   "Raciocínio Algébrico": [
-    {title:"Expressões Algébricas Básicas", src:"https://www.youtube.com/embed/MauV62jWBSI?rel=0"},
-    {title:"Equações do 1º Grau", src:"https://www.youtube.com/embed/x4k8950MVeg?rel=0"},
-    {title:"Inequações e Resolução", src:"https://www.youtube.com/embed/pecamqaz9f4?rel=0"},
-    {title:"Funções Polinomiais", src:"https://www.youtube.com/embed/C1c9VGk3ZnQ?rel=0"},
-    {title:"Relações entre Coeficientes e Raízes", src:"https://www.youtube.com/embed/RS5mRlQZWr0?rel=0"}
+    { title: "Raciocínio algébrico", src: "https://www.youtube.com/embed/uaciJfcvqU4" },
+    { title: "Expressões Algébricas", src: "https://www.youtube.com/embed/nUp4l3d56q4" },
+    { title: "Expressões Algébricas", src: "https://www.youtube.com/embed/TyUVBbsG8ag" },
+    { title: "Pensamento algébrico", src: "https://www.youtube.com/embed/ttTidTt8uHY" },
+    { title: "Raciocínio algébrico", src: "https://www.youtube.com/embed/WdxTDtZmxNQ" }
   ],
   "Raciocínio Numérico": [
-    {title:"Números Inteiros e Operações", src:"https://www.youtube.com/embed/IOyR59NRb7M?rel=0"},
-    {title:"Números Racionais", src:"https://www.youtube.com/embed/UZV0c4rblbY?rel=0"},
-    {title:"Potenciação e Radiciação", src:"https://www.youtube.com/embed/NtmEnlbEBwI?rel=0"},
-    {title:"Proporcionalidade e Razões", src:"https://www.youtube.com/embed/Dg4fPC9B36g?rel=0"},
-    {title:"Equações Numéricas", src:"https://www.youtube.com/embed/gN4h0WVTGm0?rel=0"}
+    { title: "Logiquiz: Conjuntos Numéricos", src: "https://www.youtube.com/embed/FO6tZeSepj0" },
+    { title: "5 Questões de Raciocínio Lógico - Nível 1", src: "https://www.youtube.com/embed/_Xa7IhHwSxE" },
+    { title: "Desafio de Matemática Numérico", src: "https://www.youtube.com/embed/2GX9nRUkOxA" },
+    { title: "Sequências numéricas", src: "https://www.youtube.com/embed/8hJ6Otc4qwY" },
+    { title: "Desafio de Sequência Lógica", src: "https://www.youtube.com/embed/pdOxkEFTOcA" }
   ],
   "Estatística": [
-    {title:"Medidas de Tendência Central", src:"https://www.youtube.com/embed/2KjlM-5FVqA?rel=0"},
-    {title:"Gráficos Estatísticos", src:"https://www.youtube.com/embed/5ctWgFOizkQ?rel=0"},
-    {title:"Análise e Interpretação de Dados", src:"https://www.youtube.com/embed/MSvLba4pv3c?rel=0"},
-    {title:"Distribuição Normal e Binomial", src:"https://www.youtube.com/embed/wHYcsUw_3FM?rel=0"},
-    {title:"Desvios e Variações", src:"https://www.youtube.com/embed/p5r7FgT_hj0?rel=0"}
+    { title: "Conceitos estatísticos", src: "https://www.youtube.com/embed/AoQvim2aqM0" },
+    { title: "Estatística: Médias - Aula 1", src: "https://www.youtube.com/embed/Hnu2l6Xr5eI" },
+    { title: "Média, Moda e Mediana - Aula 2", src: "https://www.youtube.com/embed/0qZjgYXBJw0" },
+    { title: "Estatística - Prof. Ivan Valdomiro", src: "https://www.youtube.com/embed/yUAZuRPgqkg" },
+    { title: "Estatística: Conceitos básicos (21/12)", src: "https://www.youtube.com/embed/0LiQ3xk3DMo" }
   ],
   "Geometria": [
-    {title:"Figuras Planas Básicas", src:"https://www.youtube.com/embed/DSAnirBeKzc?rel=0"},
-    {title:"Polígonos e Classificação", src:"https://www.youtube.com/embed/UesfT-f8Dx0?rel=0"},
-    {title:"Cálculo de Área e Perímetro", src:"https://www.youtube.com/embed/-LT4pGt2acE?rel=0"},
-    {title:"Teorema de Pitágoras", src:"https://www.youtube.com/embed/IGqGDDi6bhM?rel=0"},
-    {title:"Geometria Analítica e Funções", src:"https://www.youtube.com/embed/9Edkyej8xk8?rel=0"}
+    { title: "Geometria Plana (Curso Completo)", src: "https://www.youtube.com/embed/yG0TOaJcqoM" },
+    { title: "Introdução - Ângulos (Aula 1)", src: "https://www.youtube.com/embed/0CnUdzmpO8E" },
+    { title: "MATEMÁTICAS E SUAS TECNOLOGIAS | GEOMETRIA PLANA", src: "https://www.youtube.com/embed/1Ux2lZx39PE" },
+    { title: "Figuras Planas, Áreas e Volumes", src: "https://www.youtube.com/embed/7mUreSj9L8I" },
+    { title: "Geometria Espacial: Área e Volume", src: "https://www.youtube.com/embed/6PpNrCkDwcM" }
   ],
   "Probabilidade": [
-    {title:"Noções Básicas de Probabilidade", src:"https://www.youtube.com/embed/BUiv8OxtY8U?rel=0"},
-    {title:"Eventos Independentes e Dependentes", src:"https://www.youtube.com/embed/3ptqMHIlZ60?rel=0"},
-    {title:"Probabilidade Condicional", src:"https://www.youtube.com/embed/4_FinWL0VDk?rel=0"},
-    {title:"Cálculo de Probabilidades", src:"https://www.youtube.com/embed/WUyG8wC8VHs?rel=0"},
-    {title:"Distribuição Binomial", src:"https://www.youtube.com/embed/VN49kG6l0OE?rel=0"}
-  ],
-  "Ideias Fundamentais": [
-    {title:"Integração das Competências Matemáticas", src:"https://www.youtube.com/embed/0k--nI-Qp4A?rel=0"},
-    {title:"Matemática e Outras Disciplinas", src:"https://www.youtube.com/embed/P5N_fL1yD6A?rel=0"},
-    {title:"Abordagens Interdisciplinares", src:"https://www.youtube.com/embed/LTx-Jd7pyZ8?rel=0"},
-    {title:"Habilidades Matemáticas Essenciais", src:"https://www.youtube.com/embed/YW2gMEJeNUc?rel=0"},
-    {title:"Competências para o Ensino de Matemática", src:"https://www.youtube.com/embed/wHCsO07nU9Y?rel=0"}
-  ],
-  "Temas Contemporâneos Transversais": [
-    {title:"Matemática e Contexto Social", src:"https://www.youtube.com/embed/svLLxe8D9iM?rel=0"},
-    {title:"Matemática e Tecnologia", src:"https://www.youtube.com/embed/UBobYfEQrXI?rel=0"},
-    {title:"Matemática no Trabalho e Economia", src:"https://www.youtube.com/embed/5Qu2KRzrY_Q?rel=0"},
-    {title:"Temas Transversais na Educação", src:"https://www.youtube.com/embed/3cOnn47hKfA?rel=0"},
-    {title:"Matemática para a Cidadania", src:"https://www.youtube.com/embed/1hGL8WDjsf0?rel=0"}
-  ],
-  "Situações de Aprendizagem": [
-    {title:"Objetos de Conhecimento e Contextos", src:"https://www.youtube.com/embed/XRNdTWS421A?rel=0"},
-    {title:"Arte, Ciência e Tecnologia na Aprendizagem", src:"https://www.youtube.com/embed/64D4nwCEosc?rel=0"},
-    {title:"Considerações sobre o Contexto Escolar", src:"https://www.youtube.com/embed/Ga8xx8vHJHE?rel=0"},
-    {title:"Estratégias para Aprendizagem Significativa", src:"https://www.youtube.com/embed/fm48R0z3L6s?rel=0"},
-    {title:"Planejamento de Situações Didáticas", src:"https://www.youtube.com/embed/V2nON_PBNo8?rel=0"}
-  ],
-  "Uso de Tecnologias Digitais": [
-    {title:"Geometria Dinâmica", src:"https://www.youtube.com/embed/CalBT6cLcFY?rel=0"},
-    {title:"Gráficos de Funções", src:"https://www.youtube.com/embed/LAOfG1sASks?rel=0"},
-    {title:"Representação e Medidas Estatísticas", src:"https://www.youtube.com/embed/soeKISajbPc?rel=0"},
-    {title:"Tecnologias na Educação Matemática", src:"https://www.youtube.com/embed/Z2oHmfLFoJo?rel=0"},
-    {title:"Uso de Softwares para Matemática", src:"https://www.youtube.com/embed/MPsyhQZQwYI?rel=0"}
-  ],
-  "Formação Continuada": [
-    {title:"Cursos de Aprofundamento", src:"https://www.youtube.com/embed/Vv06KcW30xY?rel=0"},
-    {title:"Formação em Serviço", src:"https://www.youtube.com/embed/M9PiRFGbsCs?rel=0"},
-    {title:"Evolução Funcional", src:"https://www.youtube.com/embed/BDgldPMAl70?rel=0"},
-    {title:"Importância da Formação Continuada", src:"https://www.youtube.com/embed/a7YcQF2N_Z8?rel=0"},
-    {title:"Desenvolvimento Profissional Docente", src:"https://www.youtube.com/embed/jRF86X-VSxA?rel=0"}
+    { title: "PROBABILIDADE (ENSINO MÉDIO)", src: "https://www.youtube.com/embed/GDf8TkPh59k" },
+    { title: "Probabilidade - Professora Angela", src: "https://www.youtube.com/embed/vAheWef9mKw" },
+    { title: "Probabilidade de Eventos", src: "https://www.youtube.com/embed/HdOInqYuPnM" },
+    { title: "Probabilidade com apenas um exercício", src: "https://www.youtube.com/embed/jPnBJr522Nk" },
+    { title: "Probabilidade da união de dois eventos", src: "https://www.youtube.com/embed/t_S9oaYvTUE" }
   ]
 };
 
-// Função para criar o menu lateral
 function criarMenu() {
   const menu = document.getElementById("menu");
   for (const tema in modulos) {
@@ -212,21 +305,30 @@ function criarMenu() {
 
     modulos[tema].forEach((video, index) => {
       const liVideo = document.createElement("li");
-      liVideo.textContent = video.title;
 
       const circle = document.createElement("span");
       circle.classList.add("circle");
-      liVideo.prepend(circle);
 
-      liVideo.addEventListener("click", () => {
+      const titleSpan = document.createElement("span");
+      titleSpan.className = "video-title";
+      titleSpan.textContent = video.title;
+
+      const playButton = document.createElement("button");
+      playButton.textContent = "▶️";
+
+      playButton.addEventListener("click", (e) => {
+        e.stopPropagation();
         carregarVideo(tema, index);
         marcarAtivo(tema, index);
       });
+
+      liVideo.appendChild(circle);
+      liVideo.appendChild(titleSpan);
+      liVideo.appendChild(playButton);
       ulVideos.appendChild(liVideo);
     });
 
     liTema.addEventListener("click", () => {
-      // Toggle display do submenu
       const aberto = ulVideos.style.display === "block";
       document.querySelectorAll("nav ul.submenu").forEach(sub => sub.style.display = "none");
       if (!aberto) ulVideos.style.display = "block";
@@ -237,37 +339,35 @@ function criarMenu() {
   }
 }
 
-// Carregar vídeo no player
 function carregarVideo(tema, index) {
   const player = document.getElementById("video-player");
   const iframe = document.getElementById("player-iframe");
   const mensagem = document.getElementById("message");
+  const imagens = document.getElementById("imagens-iniciais");
 
-  iframe.src = modulos[tema][index].src + "&autoplay=1";
+  iframe.src = modulos[tema][index].src + "?autoplay=1";
   player.style.display = "block";
   mensagem.style.display = "none";
+  imagens.style.display = "none";
 }
 
-// Marcar vídeo ativo
 function marcarAtivo(tema, index) {
-  // Limpar marcações
   document.querySelectorAll("nav ul.submenu li").forEach(li => {
     li.classList.remove("active-theme");
     const circle = li.querySelector(".circle");
     if (circle) circle.style.backgroundColor = "red";
   });
 
-  // Marcar ativo
   const menus = document.querySelectorAll("nav > ul > li");
   let submenuIndex = 0;
-  for(let i = 0; i < menus.length; i++) {
-    if(menus[i].textContent === tema) {
-      submenuIndex = i + 1; // submenu vem depois do tema na lista
+  for (let i = 0; i < menus.length; i++) {
+    if (menus[i].textContent === tema) {
+      submenuIndex = i + 1;
       break;
     }
   }
 
-  const submenu = document.querySelectorAll("nav ul.submenu")[submenuIndex / 2 - 0.5]; // Ajuste para pegar o submenu correto
+  const submenu = document.querySelectorAll("nav ul.submenu")[submenuIndex / 2 - 0.5];
   if (submenu) {
     const item = submenu.children[index];
     if (item) {
@@ -278,10 +378,33 @@ function marcarAtivo(tema, index) {
   }
 }
 
-// Inicializa o menu ao carregar a página
+function voltarParaInicio() {
+  const player = document.getElementById("video-player");
+  const mensagem = document.getElementById("message");
+  const imagens = document.getElementById("imagens-iniciais");
+
+  player.style.display = "none";
+  mensagem.style.display = "block";
+  imagens.style.display = "grid";
+
+  const iframe = document.getElementById("player-iframe");
+  iframe.src = "";
+
+  document.querySelectorAll("nav ul.submenu li").forEach(li => {
+    li.classList.remove("active-theme");
+    const circle = li.querySelector(".circle");
+    if (circle) circle.style.backgroundColor = "red";
+  });
+}
+
 window.onload = () => {
   criarMenu();
 };
+
+function logout() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // Substitua pela URL correta
+}
+
 </script>
 
 </body>
