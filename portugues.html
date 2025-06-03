@@ -399,13 +399,11 @@ const modulos = {
 ]
 };
 
-
 function criarMenu() {
   const menu = document.getElementById("menu");
   for (const tema in modulos) {
     const liTema = document.createElement("li");
     liTema.textContent = tema;
-    liTema.style.userSelect = "none";
 
     const ulVideos = document.createElement("ul");
     ulVideos.classList.add("submenu");
@@ -427,6 +425,10 @@ function criarMenu() {
         e.stopPropagation();
         carregarVideo(tema, index);
         marcarAtivo(tema, index);
+        // Fecha menu no mobile após seleção
+        if(window.innerWidth <= 768) {
+          document.querySelector('nav').classList.remove('open');
+        }
       });
 
       liVideo.appendChild(circle);
@@ -447,73 +449,64 @@ function criarMenu() {
 }
 
 function carregarVideo(tema, index) {
-  const player = document.getElementById("video-player");
-  const iframe = document.getElementById("player-iframe");
-  const mensagem = document.getElementById("message");
-  const imagens = document.getElementById("imagens-iniciais");
-
-  iframe.src = modulos[tema][index].src + "?autoplay=1";
-  player.style.display = "block";
-  mensagem.style.display = "none";
-  imagens.style.display = "none";
+  const player = document.getElementById("player-iframe");
+  const videoPlayerDiv = document.getElementById("video-player");
+  const message = document.getElementById("message");
+  const videoSrc = modulos[tema][index].src;
+  player.src = videoSrc + "?autoplay=1&rel=0";
+  videoPlayerDiv.style.display = "block";
+  message.style.display = "none";
 }
 
-function marcarAtivo(tema, index) {
+function marcarAtivo(temaAtivo, videoAtivo) {
+  // Remove classes anteriores
   document.querySelectorAll("nav ul.submenu li").forEach(li => {
     li.classList.remove("active-theme");
-    const circle = li.querySelector(".circle");
-    if (circle) circle.style.backgroundColor = "red";
+    li.querySelector(".circle").style.background = "red";
   });
 
-  const menus = document.querySelectorAll("nav > ul > li");
-  let submenuIndex = 0;
-  for (let i = 0; i < menus.length; i++) {
-    if (menus[i].textContent === tema) {
-      submenuIndex = i + 1;
-      break;
-    }
-  }
-
-  const submenu = document.querySelectorAll("nav ul.submenu")[submenuIndex / 2 - 0.5];
-  if (submenu) {
-    const item = submenu.children[index];
-    if (item) {
-      item.classList.add("active-theme");
-      const circle = item.querySelector(".circle");
-      if (circle) circle.style.backgroundColor = "green";
+  // Marca ativo atual
+  const submenus = document.querySelectorAll("nav ul.submenu");
+  for (let submenu of submenus) {
+    if (submenu.previousElementSibling.textContent === temaAtivo) {
+      const lis = submenu.querySelectorAll("li");
+      lis.forEach((li, i) => {
+        if (i === videoAtivo) {
+          li.classList.add("active-theme");
+          li.querySelector(".circle").style.background = "green";
+        }
+      });
     }
   }
 }
 
 function voltarParaInicio() {
-  const player = document.getElementById("video-player");
-  const mensagem = document.getElementById("message");
-  const imagens = document.getElementById("imagens-iniciais");
-
-  player.style.display = "none";
-  mensagem.style.display = "block";
-  imagens.style.display = "grid";
-
-  const iframe = document.getElementById("player-iframe");
-  iframe.src = "";
-
-  document.querySelectorAll("nav ul.submenu li").forEach(li => {
-    li.classList.remove("active-theme");
-    const circle = li.querySelector(".circle");
-    if (circle) circle.style.backgroundColor = "red";
-  });
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
 }
-
-window.onload = () => {
-  criarMenu();
-};
 
 function logout() {
-  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // Substitua pela URL correta
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
 }
 
+// Alternar menu mobile
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+  const nav = document.querySelector("nav");
+  nav.classList.toggle("open");
+});
+
+// Fecha menu ao clicar fora no mobile
+document.addEventListener("click", (event) => {
+  const nav = document.querySelector("nav");
+  const toggle = document.querySelector(".menu-toggle");
+  if(window.innerWidth <= 768) {
+    if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+      nav.classList.remove("open");
+    }
+  }
+});
+
+criarMenu();
 </script>
 
 </body>
 </html>
-
