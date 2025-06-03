@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisão para os professores inscritos PSS - 2025</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    header {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      background: #004080;
+      color: white;
+      padding: 15px 20px;
+      font-weight: bold;
+      font-size: 1.3em;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    nav {
+      width: 250px;
+      background: #f0f0f0;
+      padding-top: 100px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+    }
+
+    nav ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    nav > ul > li {
+      padding: 12px 20px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: left;
+    }
+
+    nav > ul > li:hover {
+      background: #ddd;
+    }
+
+    nav ul.submenu {
+      padding-left: 20px;
+      background: #fafafa;
+      width: 100%;
+      display: none;
+    }
+
+    nav ul.submenu li {
+      padding: 8px 5px;
+      cursor: pointer;
+      font-weight: normal;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .video-title {
+      flex: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    nav ul.submenu li:hover {
+      text-decoration: underline;
+    }
+
+    nav ul.submenu li.active-theme {
+      color: #004080;
+      font-weight: bold;
+    }
+
+    nav ul.submenu li .circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: red;
+      margin-right: 10px;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul.submenu li.active-theme .circle {
+      background: green !important;
+    }
+
+    nav ul.submenu li button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: transform 0.2s ease;
+    }
+
+    nav ul.submenu li button:hover {
+      transform: scale(1.2);
+    }
+
+    main {
+      flex-grow: 1;
+      padding: 120px 20px 20px 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+    }
+
+    #video-player {
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    #video-player iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #message {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #imagens-iniciais {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    #imagens-iniciais iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    #intro-text {
+      font-size: 1.2em;
+      color: #333;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .home-button {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 2000;
+    }
+
+    .home-button button {
+      font-size: 1.5em;
+      padding: 6px 12px;
+      background-color: #004080;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .logout-button {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 2000;
+}
+
+.logout-button button {
+  font-size: 1.2em;
+  padding: 6px 12px;
+  background-color: #800000;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+#intro-text {
+  font-size: 1.4em;
+  font-weight: bold;
+  color: #fff;
+  background-color: #004080;
+  padding: 10px 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+  margin-bottom: 10px;
+}
+
+
+  </style>
+</head>
+<body>
+
+<div class="home-button">
+  <button onclick="voltarParaInicio()">🏠 Início</button>
+</div>
+<div class="logout-button">
+  <button onclick="logout()">Logout</button>
+</div>
+
+
+<header>
+  Revisão para os professores inscritos PSS - 2025 - 
+  Material atualizado semanalmente
+</header>
+
+<nav>
+  <ul id="menu"></ul>
+</nav>
+
+<main>
+  <div id="video-player">
+    <iframe id="player-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+  </div>
+
+  <div id="message">Selecione um tema no menu lateral para seguir com seus estudos, se tiver no celulcar clica nos 3 risquinhos.</div>
+
+  <div id="intro-text">Abaixo algumas dicas para sua aula prática</div>
+
+  <div id="imagens-iniciais">
+    <iframe src="https://www.youtube.com/embed/VcBR6YpJWqk" title="Vídeo 1"></iframe>
+    <iframe src="https://www.youtube.com/embed/YPk06uwp5RE" title="Vídeo 2"></iframe>
+    <iframe src="https://www.youtube.com/embed/t0FDEjXCC8Q" title="Vídeo 3"></iframe>
+    <iframe src="https://www.youtube.com/embed/TCyfS3tAV-M" title="Vídeo 4"></iframe>
+    <iframe src="https://www.youtube.com/embed/xDBM27QyaqQ" title="Vídeo 5"></iframe>
+    <iframe src="https://www.youtube.com/embed/cmLgaVI9CVM" title="Vídeo 6"></iframe>
+  </div>
+</main>
+
+
+<script>
+const modulos = {
+  "Fenômeno linguístico nas dimensões discursiva, semântica, gramatical, textual e pragmática": [
+    { title: "Níveis da Linguística: Semântica, Pragmática e Discurso", src: "https://www.youtube.com/embed/00Opx6xwGV8" },
+    { title: "Semântica e Pragmática - Aula 1", src: "https://www.youtube.com/embed/GxFEXwHC7JE" },
+    { title: "SINTAXE, SEMÂNTICA E PRAGMÁTICA", src: "https://www.youtube.com/embed/lf_yWB_qBIY" },
+    { title: "Semântica [Prof Noslen]", src: "https://www.youtube.com/embed/dfkvdIGqZvs" },
+    { title: "Semântica e Pragmática", src: "https://www.youtube.com/embed/WWahZ22J7OE" },
+    { title: "Semântica e Pragmática - aula 1", src: "https://www.youtube.com/embed/GxFEXwHC7JE" }
+  ],
+  "Variação linguística: fatores geográficos, históricos, sociológicos e técnicos; diferenças entre linguagem oral e escrita; seleção de registro": [
+    { title: "Variação Linguística [Prof Noslen]", src: "https://www.youtube.com/embed/6fBOVygtNoU" },
+    { title: "VARIAÇÃO LINGUÍSTICA: histórica, regional, social e estilística", src: "https://www.youtube.com/embed/OWkrebsp8Ng" },
+    { title: "Variação Linguística — Aprenda Agora Mesmo", src: "https://www.youtube.com/embed/04nbD8Tx8Vw" },
+    { title: "VARIAÇÃO LINGUÍSTICA - Você vai APRENDER", src: "https://www.youtube.com/embed/2h26Wt4tbJE" },
+    { title: "VARIAÇÃO LINGUISTICA (HISTÓRICA, SOCIAL E ESTILÍSTICA)", src: "https://www.youtube.com/embed/UifQ1jZ7Q2Y" },
+    { title: "Variação linguística", src: "https://www.youtube.com/embed/pU7MWAC-Bho" }
+  ],
+  "Construção de sentidos em situações de produção e recepção textuais": [
+    { title: "Texto: construção de sentidos - Curso Positivo", src: "https://www.youtube.com/embed/F__WSgd0PIE" },
+    { title: "Curta 8 – Níveis de construção de sentido textual", src: "https://www.youtube.com/embed/hD5ALjOWXmE" },
+    { title: "Aula 01 - Reconstrução do contexto", src: "https://www.youtube.com/embed/SGNF-NfAq_s" },
+    { title: "Aula 03 - Reconstrução do contexto", src: "https://www.youtube.com/embed/IXib8PDBjlo" },
+    { title: "Aula 07 - Condições de produção e recepção", src: "https://www.youtube.com/embed/1jWhr9MEq3A" },
+    { title: "Aula 18 - Produção, circulação e recepção", src: "https://www.youtube.com/embed/jwd8HJwmdso" }
+  ],
+"Intertextualidade: análise do tema, estrutura composicional e estilo de objetos culturais em diferentes linguagens": [
+  { "title": "INTERTEXTUALIDADE: O QUE É E COMO IDENTIFICAR?", "src": "https://www.youtube.com/embed/WUHfO8zx2bI" },
+  { "title": "TUDO Sobre Intertextualidade (Tipos e Conceitos)", "src": "https://www.youtube.com/embed/x91rfBPj2XA" },
+  { "title": "A INTERTEXTUALIDADE COMO RECURSO DA ESCRITA", "src": "https://www.youtube.com/embed/txnMHNQYSHA" },
+  { "title": "Intertextualidade - Brasil Escola", "src": "https://www.youtube.com/embed/0BE-YsS0WEk" },
+  { "title": "Gêneros DISCURSIVOS: como ANALISAR?", "src": "https://www.youtube.com/embed/0Vipgj6a3vU" },
+  { "title": "8º ANO - ESTRUTURA COMPOSICIONAL", "src": "https://www.youtube.com/embed/m-Jf66eD8wE" }
+  ],
+"Uso de recursos linguísticos expressivos em textos e suas intenções": [
+  { "title": "Recursos Linguísticos - Profª Elaine Oliveira", "src": "https://www.youtube.com/embed/3bacXdvS0gY" },
+  { "title": "Recursos linguístico discursivos: entenda", "src": "https://www.youtube.com/embed/vZivQ6PRfsU" },
+  { "title": "RECURSOS EXPRESSIVOS", "src": "https://www.youtube.com/embed/6tlyCMjEU6o" },
+  { "title": "Recursos linguísticos", "src": "https://www.youtube.com/embed/PB6i1SpcJd0" },
+  { "title": "Recursos retóricos e estilísticos", "src": "https://www.youtube.com/embed/-Cic4S7QFnU" },
+  { "title": "Intenções comunicativas e recursos linguísticos", "src": "https://www.youtube.com/embed/iu5ibBApqqY" }
+  ],
+  "Articulação de conhecimentos prévios e informações textuais para explicar ambiguidades, ironias, expressões figuradas, opiniões e valores implícitos": [
+  { "title": "Inferências, ambiguidade e polissemia", "src": "https://www.youtube.com/embed/DJ4AvAguMfI" },
+  { "title": "AMBIGUIDADE, PRESSUPOSTOS e SUBENTENDIDOS", "src": "https://www.youtube.com/embed/XU_Uj0LZ9fI" },
+  { "title": "Ambiguidade, duplo sentido, ironia e humor", "src": "https://www.youtube.com/embed/jH6S-ZgUAm8" },
+  { "title": "Efeitos de sentido: ambiguidade e humor", "src": "https://www.youtube.com/embed/DJ4AvAguMfI" },
+  { "title": "Pragmática Formal: Pressuposição", "src": "https://www.youtube.com/embed/JOMpuWBA6FU" },
+  { "title": "Análise do Discurso - Parte 01", "src": "https://www.youtube.com/embed/n3b0dnLi6D4" }
+  ],
+"Análise de diferentes discursos em língua falada e escrita, observando estrutura, organização e significado relacionado às condições de produção e recepção": [
+  { "title": "Análise de discurso: conceitos iniciais", "src": "https://www.youtube.com/embed/e31ZXAU7Imc" },
+  { "title": "Análise do Discurso - Parte 01", "src": "https://www.youtube.com/embed/n3b0dnLi6D4" },
+  { "title": "O que é análise de discurso?", "src": "https://www.youtube.com/embed/7hdhNqJMQsI" },
+  { "title": "Tipos de discurso (direto, indireto, indireto livre)", "src": "https://www.youtube.com/embed/Z8v3Js8gfSA" },
+  { "title": "Condições de produção e recepção do discurso", "src": "https://www.youtube.com/embed/Ash_WALPDh4" },
+  { "title": "Discurso e ideologia", "src": "https://www.youtube.com/embed/nJC-7_WgF98" }
+  ],
+"Literatura associada à teoria e à crítica literária": [
+  { "title": "Introdução à crítica literária", "src": "https://www.youtube.com/embed/lJuTBbdRfdk" },
+  { "title": "Crítica literária: primeiros passos", "src": "https://www.youtube.com/embed/HlxPw-uB92Q" },
+  { "title": "Teoria literária e análise de obras", "src": "https://www.youtube.com/embed/uWTp_3r0ouA" },
+  { "title": "O que é crítica literária?", "src": "https://www.youtube.com/embed/4hlQJrZtUCM" },
+  { "title": "Teorias da literatura em perspectiva", "src": "https://www.youtube.com/embed/j8y9Vc3xViI" },
+  { "title": "História e crítica da literatura", "src": "https://www.youtube.com/embed/WzLbw9EMB4E" }
+],
+"Textos literários e intertextualidade: gêneros, temas e representações nas obras da literatura em língua portuguesa": [
+  { "title": "INTERTEXTUALIDADE: O QUE É E COMO IDENTIFICAR?", "src": "https://www.youtube.com/embed/WUHfO8zx2bI" },
+  { "title": "TUDO Sobre Intertextualidade (Tipos e Conceitos)", "src": "https://www.youtube.com/embed/x91rfBPj2XA" },
+  { "title": "A INTERTEXTUALIDADE COMO RECURSO DA ESCRITA", "src": "https://www.youtube.com/embed/txnMHNQYSHA" },
+  { "title": "Intertextualidade - Brasil Escola", "src": "https://www.youtube.com/embed/0BE-YsS0WEk" },
+  { "title": "Gêneros DISCURSIVOS: como ANALISAR?", "src": "https://www.youtube.com/embed/0Vipgj6a3vU" },
+  { "title": "8º ANO - ESTRUTURA COMPOSICIONAL", "src": "https://www.youtube.com/embed/m-Jf66eD8wE" }
+],
+"Pressupostos teóricos que embasam os conceitos fundantes da disciplina de Língua Portuguesa na práxis didática dos processos de ensino e de aprendizagem": [
+  { "title": "Fundamentos teóricos da LP na prática docente", "src": "https://www.youtube.com/embed/sQ_T3bPFSXg" },
+  { "title": "Ensino de Língua Portuguesa e seus fundamentos", "src": "https://www.youtube.com/embed/6d-qzRdv5zI" }
+]
+};
+
+
+function criarMenu() {
+  const menu = document.getElementById("menu");
+  for (const tema in modulos) {
+    const liTema = document.createElement("li");
+    liTema.textContent = tema;
+    liTema.style.userSelect = "none";
+
+    const ulVideos = document.createElement("ul");
+    ulVideos.classList.add("submenu");
+
+    modulos[tema].forEach((video, index) => {
+      const liVideo = document.createElement("li");
+
+      const circle = document.createElement("span");
+      circle.classList.add("circle");
+
+      const titleSpan = document.createElement("span");
+      titleSpan.className = "video-title";
+      titleSpan.textContent = video.title;
+
+      const playButton = document.createElement("button");
+      playButton.textContent = "▶️";
+
+      playButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        carregarVideo(tema, index);
+        marcarAtivo(tema, index);
+      });
+
+      liVideo.appendChild(circle);
+      liVideo.appendChild(titleSpan);
+      liVideo.appendChild(playButton);
+      ulVideos.appendChild(liVideo);
+    });
+
+    liTema.addEventListener("click", () => {
+      const aberto = ulVideos.style.display === "block";
+      document.querySelectorAll("nav ul.submenu").forEach(sub => sub.style.display = "none");
+      if (!aberto) ulVideos.style.display = "block";
+    });
+
+    menu.appendChild(liTema);
+    menu.appendChild(ulVideos);
+  }
+}
+
+function carregarVideo(tema, index) {
+  const player = document.getElementById("video-player");
+  const iframe = document.getElementById("player-iframe");
+  const mensagem = document.getElementById("message");
+  const imagens = document.getElementById("imagens-iniciais");
+
+  iframe.src = modulos[tema][index].src + "?autoplay=1";
+  player.style.display = "block";
+  mensagem.style.display = "none";
+  imagens.style.display = "none";
+}
+
+function marcarAtivo(tema, index) {
+  document.querySelectorAll("nav ul.submenu li").forEach(li => {
+    li.classList.remove("active-theme");
+    const circle = li.querySelector(".circle");
+    if (circle) circle.style.backgroundColor = "red";
+  });
+
+  const menus = document.querySelectorAll("nav > ul > li");
+  let submenuIndex = 0;
+  for (let i = 0; i < menus.length; i++) {
+    if (menus[i].textContent === tema) {
+      submenuIndex = i + 1;
+      break;
+    }
+  }
+
+  const submenu = document.querySelectorAll("nav ul.submenu")[submenuIndex / 2 - 0.5];
+  if (submenu) {
+    const item = submenu.children[index];
+    if (item) {
+      item.classList.add("active-theme");
+      const circle = item.querySelector(".circle");
+      if (circle) circle.style.backgroundColor = "green";
+    }
+  }
+}
+
+function voltarParaInicio() {
+  const player = document.getElementById("video-player");
+  const mensagem = document.getElementById("message");
+  const imagens = document.getElementById("imagens-iniciais");
+
+  player.style.display = "none";
+  mensagem.style.display = "block";
+  imagens.style.display = "grid";
+
+  const iframe = document.getElementById("player-iframe");
+  iframe.src = "";
+
+  document.querySelectorAll("nav ul.submenu li").forEach(li => {
+    li.classList.remove("active-theme");
+    const circle = li.querySelector(".circle");
+    if (circle) circle.style.backgroundColor = "red";
+  });
+}
+
+window.onload = () => {
+  criarMenu();
+};
+
+function logout() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // Substitua pela URL correta
+}
+
+</script>
+
+</body>
+</html>
+
