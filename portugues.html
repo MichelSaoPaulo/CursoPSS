@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Revisão para os professores inscritos PSS - 2025</title>
   <style>
+    /* Reset e base */
     body {
       font-family: Arial, sans-serif;
       margin: 0;
@@ -12,6 +13,8 @@
       display: flex;
       height: 100vh;
       overflow: hidden;
+      flex-direction: row;
+      background: #fff;
     }
 
     header {
@@ -28,12 +31,19 @@
       text-align: center;
     }
 
+    /* MENU LATERAL - Desktop */
     nav {
       width: 250px;
       background: #f0f0f0;
       padding-top: 100px;
       overflow-y: auto;
       border-right: 1px solid #ccc;
+      position: fixed; /* fixo para desktop */
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 999;
+      transition: transform 0.3s ease;
     }
 
     nav ul {
@@ -48,6 +58,7 @@
       cursor: pointer;
       font-weight: bold;
       text-align: left;
+      user-select: none;
     }
 
     nav > ul > li:hover {
@@ -69,13 +80,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-    }
-
-    .video-title {
-      flex: 1;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
     }
 
     nav ul.submenu li:hover {
@@ -113,14 +117,17 @@
       transform: scale(1.2);
     }
 
+    /* CONTEÚDO PRINCIPAL */
     main {
       flex-grow: 1;
-      padding: 120px 20px 20px 20px;
+      padding: 120px 20px 20px 270px; /* espaço para menu lateral no desktop */
       overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
       background: #fff;
+      height: 100vh;
+      box-sizing: border-box;
     }
 
     #video-player {
@@ -162,61 +169,125 @@
     }
 
     #intro-text {
-      font-size: 1.2em;
-      color: #333;
-      margin-bottom: 10px;
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+      background-color: #004080;
+      padding: 10px 20px;
+      border-radius: 10px;
       text-align: center;
+      box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 900px;
     }
 
-    .home-button {
+    /* BOTOES FIXOS */
+    .home-button, .logout-button {
       position: fixed;
       top: 10px;
-      left: 10px;
       z-index: 2000;
     }
-
-    .home-button button {
+    .home-button {
+      left: 10px;
+    }
+    .logout-button {
+      right: 10px;
+    }
+    .home-button button, .logout-button button {
       font-size: 1.5em;
       padding: 6px 12px;
-      background-color: #004080;
-      color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      color: white;
     }
-    .logout-button {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 2000;
-}
+    .home-button button {
+      background-color: #004080;
+    }
+    .logout-button button {
+      background-color: #800000;
+      font-size: 1.2em;
+    }
 
-.logout-button button {
-  font-size: 1.2em;
-  padding: 6px 12px;
-  background-color: #800000;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-#intro-text {
-  font-size: 1.4em;
-  font-weight: bold;
-  color: #fff;
-  background-color: #004080;
-  padding: 10px 20px;
-  border-radius: 10px;
-  text-align: center;
-  box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
-  text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
-  margin-bottom: 10px;
-}
+    /* MENU HAMBURGUER PARA MOBILE */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 3000;
+      background: #004080;
+      color: white;
+      border: none;
+      font-size: 1.8em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
 
-
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        overflow: visible;
+      }
+      header {
+        top: 50px;
+        padding: 10px 15px;
+        font-size: 1.1em;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        background: #f0f0f0;
+        padding-top: 70px;
+        transform: translateX(-100%);
+        box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      }
+      nav.open {
+        transform: translateX(0);
+      }
+      main {
+        padding: 110px 15px 20px 15px;
+        margin-left: 0;
+        height: auto;
+        overflow: visible;
+        max-width: 100%;
+      }
+      #video-player {
+        height: 250px;
+        max-width: 100%;
+      }
+      #imagens-iniciais iframe {
+        height: 150px;
+      }
+      #intro-text {
+        max-width: 100%;
+        font-size: 1.2em;
+      }
+      .home-button {
+        top: 50px; /* Para não sobrepor o menu toggle */
+        left: 60px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .logout-button {
+        top: 10px;
+        right: 10px;
+      }
+    }
   </style>
 </head>
 <body>
+
+<!-- Botão menu hamburguer para mobile -->
+<button class="menu-toggle" aria-label="Abrir menu">☰</button>
 
 <div class="home-button">
   <button onclick="voltarParaInicio()">🏠 Início</button>
@@ -234,7 +305,7 @@
     <iframe id="player-iframe" src="" allowfullscreen allow="autoplay"></iframe>
   </div>
 
-  <div id="message">Selecione um tema no menu lateral para seguir com seus estudos, se tiver no celulcar clica nos 3 risquinhos.</div>
+  <div id="message">Selecione um tema no menu lateral ou nos 3 risquinhos se tiver no celular para seguir com seus estudos.</div>
 
   <div id="intro-text">Abaixo algumas dicas para sua aula prática</div>
 
@@ -247,7 +318,6 @@
     <iframe src="https://www.youtube.com/embed/cmLgaVI9CVM" title="Vídeo 6"></iframe>
   </div>
 </main>
-
 
 <script>
 const modulos = {
