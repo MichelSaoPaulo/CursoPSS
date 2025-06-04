@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisão para os professores inscritos PSS - 2025</title>
+  <style>
+    /* Reset e base */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: row;
+      background: #fff;
+    }
+
+    header {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      background: #004080;
+      color: white;
+      padding: 15px 20px;
+      font-weight: bold;
+      font-size: 1.3em;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    /* MENU LATERAL - Desktop */
+    nav {
+      width: 250px;
+      background: #f0f0f0;
+      padding-top: 100px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+      position: fixed; /* fixo para desktop */
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 999;
+      transition: transform 0.3s ease;
+    }
+
+    nav ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    nav > ul > li {
+      padding: 12px 20px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: left;
+      user-select: none;
+    }
+
+    nav > ul > li:hover {
+      background: #ddd;
+    }
+
+    nav ul.submenu {
+      padding-left: 20px;
+      background: #fafafa;
+      width: 100%;
+      display: none;
+    }
+
+    nav ul.submenu li {
+      padding: 8px 5px;
+      cursor: pointer;
+      font-weight: normal;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav ul.submenu li:hover {
+      text-decoration: underline;
+    }
+
+    nav ul.submenu li.active-theme {
+      color: #004080;
+      font-weight: bold;
+    }
+
+    nav ul.submenu li .circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: red;
+      margin-right: 10px;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul.submenu li.active-theme .circle {
+      background: green !important;
+    }
+
+    nav ul.submenu li button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: transform 0.2s ease;
+    }
+
+    nav ul.submenu li button:hover {
+      transform: scale(1.2);
+    }
+
+    /* CONTEÚDO PRINCIPAL */
+    main {
+      flex-grow: 1;
+      padding: 120px 20px 20px 270px; /* espaço para menu lateral no desktop */
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    #video-player {
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    #video-player iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #message {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #imagens-iniciais {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    #imagens-iniciais iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    #intro-text {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+      background-color: #004080;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* BOTOES FIXOS */
+    .home-button, .logout-button {
+      position: fixed;
+      top: 10px;
+      z-index: 2000;
+    }
+    .home-button {
+      left: 10px;
+    }
+    .logout-button {
+      right: 10px;
+    }
+    .home-button button, .logout-button button {
+      font-size: 1.5em;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+    }
+    .home-button button {
+      background-color: #004080;
+    }
+    .logout-button button {
+      background-color: #800000;
+      font-size: 1.2em;
+    }
+
+    /* MENU HAMBURGUER PARA MOBILE */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 3000;
+      background: #004080;
+      color: white;
+      border: none;
+      font-size: 1.8em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        overflow: visible;
+      }
+      header {
+        top: 50px;
+        padding: 10px 15px;
+        font-size: 1.1em;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        background: #f0f0f0;
+        padding-top: 70px;
+        transform: translateX(-100%);
+        box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      }
+      nav.open {
+        transform: translateX(0);
+      }
+      main {
+        padding: 110px 15px 20px 15px;
+        margin-left: 0;
+        height: auto;
+        overflow: visible;
+        max-width: 100%;
+      }
+      #video-player {
+        height: 250px;
+        max-width: 100%;
+      }
+      #imagens-iniciais iframe {
+        height: 150px;
+      }
+      #intro-text {
+        max-width: 100%;
+        font-size: 1.2em;
+      }
+      .home-button {
+        top: 50px; /* Para não sobrepor o menu toggle */
+        left: 60px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .logout-button {
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Botão menu hamburguer para mobile -->
+<button class="menu-toggle" aria-label="Abrir menu">☰</button>
+
+<div class="home-button">
+  <button onclick="voltarParaInicio()">🏠 Início</button>
+</div>
+<div class="logout-button">
+  <button onclick="logout()">Logout</button>
+</div>
+
+<nav>
+  <ul id="menu"></ul>
+</nav>
+
+<main>
+  <div id="video-player">
+    <iframe id="player-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+  </div>
+
+  <div id="message">Selecione um tema no menu lateral ou nos 3 risquinhos se tiver no celular para seguir com seus estudos.</div>
+
+  <div id="intro-text">Abaixo algumas dicas para sua aula prática</div>
+
+  <div id="imagens-iniciais">
+    <iframe src="https://www.youtube.com/embed/VcBR6YpJWqk" title="Vídeo 1"></iframe>
+    <iframe src="https://www.youtube.com/embed/YPk06uwp5RE" title="Vídeo 2"></iframe>
+    <iframe src="https://www.youtube.com/embed/t0FDEjXCC8Q" title="Vídeo 3"></iframe>
+    <iframe src="https://www.youtube.com/embed/TCyfS3tAV-M" title="Vídeo 4"></iframe>
+    <iframe src="https://www.youtube.com/embed/xDBM27QyaqQ" title="Vídeo 5"></iframe>
+    <iframe src="https://www.youtube.com/embed/cmLgaVI9CVM" title="Vídeo 6"></iframe>
+  </div>
+</main>
+
+<script>
+const modulos = {
+  "1. Teoria da História, Fontes e Temporalidades": [
+    { title: "Correntes historiográficas - História - Ensino Médio", src: "https://www.youtube.com/embed/V1WO1Ml4MRE" },
+    { title: "Correntes Historiográficas - História da História", src: "https://www.youtube.com/embed/MjaNk_otxwk" },
+    { title: "CORRENTES HISTORIOGRÁFICAS | Série: Tudo é História (Ep.5)", src: "https://www.youtube.com/embed/tMzC4ilhIZ4" },
+    { title: "História Oral Correntes historiográficas - teoria da história", src: "https://www.youtube.com/embed/2ZHZeAUnoVI" },
+    { title: "Correntes Historiográficas", src: "https://www.youtube.com/embed/Ucpi6o3Q_k0" },
+    { title: "A História e as correntes historiográficas", src: "https://www.youtube.com/embed/5Msrm3QGIbM" }
+  ],
+  "2. História e Espaços: Para além da periodização tradicional": [
+    { title: "PERIODIZAÇÃO HISTÓRICA - HISTÓRIA EM MINUTOS", src: "https://www.youtube.com/embed/xEYrO_9OSNs" },
+    { title: "Periodização Histórica - História em minutos", src: "https://www.youtube.com/embed/6pkdvsB3L8I" },
+    { title: "Críticas aos modelos de periodização", src: "https://www.youtube.com/embed/2Je6RczDd9g" },
+    { title: "PERIODIZAÇÃO DA HISTÓRIA E LINHAS DO TEMPO", src: "https://www.youtube.com/embed/cLLn2mtp_j8" },
+    { title: "A Linha do Tempo e a Periodização da História", src: "https://www.youtube.com/embed/IVJozKRLmMU" },
+    { title: "A HISTÓRIA DEVE SER DIVIDIDA EM PEDAÇOS? - AULA 1", src: "https://www.youtube.com/embed/LLePfeQ5eFM" }
+  ],
+  "3. Patrimônio, Memória e Identidade": [
+    { title: "Patrimônio, Identidade e Memória | Viagens de Clio por Pedro Ivo", src: "https://www.youtube.com/embed/EvsQCWQ1i8g" },
+    { title: "CULTURA, MEMÓRIA e PATRIMÔNIO", src: "https://www.youtube.com/embed/NM3J0fgYexs" },
+    { title: "Patrimônio histórico cultural - Brasil Escola", src: "https://www.youtube.com/embed/-OZ1MPjiSe8" },
+    { title: "Patrimônio, Cultura e Memória no Enem - Brasil Escola", src: "https://www.youtube.com/embed/WkfH_IjDHk8" },
+    { title: "História, Patrimônio e memória", src: "https://www.youtube.com/embed/QlyL9qb0dus" },
+    { title: "MEMÓRIA E PATRIMÔNIO | Prof. Marcelo Lameirão", src: "https://www.youtube.com/embed/DhAeKd7DLaA" }
+  ],
+  "4. Diversidade Cultural e Formação Sociocultural Brasileira": [
+    { title: "Formação e cultura da população brasileira completo", src: "https://www.youtube.com/embed/wPyyyCzEf1M" },
+    { title: "A diversidade cultural brasileira - Ensino Fundamental 1", src: "https://www.youtube.com/embed/gsK1LxVK0r8" },
+    { title: "O QUE É DIVERSIDADE CULTURAL? AULA COMPLETA", src: "https://www.youtube.com/embed/U-kBqPNpf14" },
+    { title: "Formação Sociocultural Brasileira - Sociologia", src: "https://www.youtube.com/embed/ey4F5Qmi4UU" },
+    { title: "FORMAÇÃO DA CULTURA BRASILEIRA - (VIDEO AULA)", src: "https://www.youtube.com/embed/YvugEQesuuM" },
+    { title: "Cultura e suas diversidades​ - Sociologia - Ensino Médio", src: "https://www.youtube.com/embed/CF-AFcwVGo4" }
+  ],
+  "5. Civilizações Antigas e História Antiga": [
+    { title: "Civilizações antigas: Egito e Mesopotâmia - História", src: "https://www.youtube.com/embed/NI_xLBBAiJk" },
+    { title: "As 7 CIVILIZAÇÕES MAIS ANTIGAS DA TERRA", src: "https://www.youtube.com/embed/NHsv-PrLsWA" },
+    { title: "Aula #1 História Antiga (53/2022)", src: "https://www.youtube.com/embed/SEccskwpfAg" },
+    { title: "PM PR E CBMPR História Geral - Primeiras civilizações", src: "https://www.youtube.com/embed/AImSfdWW7Ks" },
+    { title: "Idade Antiga - 6º ano História, Ensino Fundamental", src: "https://www.youtube.com/embed/kUwqgOqTmvk" },
+    { title: "1 - Civilizações Antigas (playlist)", src: "https://www.youtube.com/embed/videoseries?list=PLzuAs2HNXhe6PwKInlGmUi5iFdzTYcgXN" }
+  ],
+  "6. Idade Média e suas Transformações": [
+    { title: "Idade Média | Resumo Toda Matéria", src: "https://www.youtube.com/embed/xYRsIQT-Qmc" },
+    { title: "IDADE MÉDIA | HISTÓRIA | QUER QUE DESENHE?", src: "https://www.youtube.com/embed/N6YxYbdvkNg" },
+    { title: "Resumo de História: IDADE MÉDIA (tudo que você precisa saber!)", src: "https://www.youtube.com/embed/CTIs_RSPr84" },
+    { title: "TRANSFORMAÇÕES NA EUROPA MEDIEVAL (HISTÓRIA)", src: "https://www.youtube.com/embed/ZLO1GI6FkfE" },
+    { title: "HISTÓRIA TRANSIÇÃO DA IDADE MÉDIA PARA A ...", src: "https://www.youtube.com/embed/0WWnGLH9u1E" },
+    { title: "A IDADE MÉDIA", src: "https://www.youtube.com/embed/zUp8O8Ib_QI" }
+  ],
+  "7. Sociedades Escravistas e Relações de Dominação": [
+    { title: "As Políticas de Domínio | História | Oficina do Estudante", src: "https://www.youtube.com/embed/ZptVlQ9wD7c" },
+    { title: "Documentário - Escravidão no Brasil - Parte I", src: "https://www.youtube.com/embed/MTfBJkmbSzY" },
+    { title: "A escravidão africana no Brasil dominação e resistência", src: "https://www.youtube.com/embed/JnWxEPYidsI" },
+    { title: "Resistência à Escravidão no Brasil (vídeo-aula)", src: "https://www.youtube.com/embed/6RLW6W0I0bE" },
+    { title: "HISTÓRIA DA ESCRAVIDÃO NO BRASIL E PROCLAMAÇÃO DA ...", src: "https://www.youtube.com/embed/qqSRyVsbjXE" },
+    { title: "O Escravismo Colonial", src: "https://www.youtube.com/embed/DptP7kuSApU" }
+  ],
+  "8. Territórios, Fronteiras e Geopolítica": [
+    { title: "GEOPOLÍTICA MUNDIAL - PARTE 1 | Quer Que Desenhe", src: "https://www.youtube.com/embed/Uhgh6cAOhCg" },
+    { title: "Território, limites e fronteiras pelo mundo - Geografia - Ensino Médio", src: "https://www.youtube.com/embed/jOEjd2Ln61o" },
+    { title: "Territórios e Fronteiras", src: "https://www.youtube.com/embed/qN8yf8LNa5E" },
+    { title: "Geopolitica (Geografia Politica) - playlist", src: "https://www.youtube.com/embed/videoseries?list=PLKOuOQoTZ_yi0BlYoxmPH6EoBTjzOu47I" },
+    { title: "Geopolítica: Estado, Nação e Território | Pílulas de Geografia", src: "https://www.youtube.com/embed/Czi4v5YrwU0" },
+    { title: "Território, Fronteira e Limite: Qual a diferença entre eles?", src: "https://www.youtube.com/embed/Wo-Y0ByUVJQ" }
+  ],
+  "9. Trabalho, Capital e Transformações Sociais": [
+    { title: "Relações de produção, capital e trabalho na história", src: "https://www.youtube.com/embed/V1WO1Ml4MRE" },
+    { title: "Escravidão, tráfico negreiro e escravismo, séculos XVIII e XIX (Aula ...)", src: "https://www.youtube.com/embed/hP2HVPHAfNo" },
+    { title: "A origem da escravidão no Brasil | Nerdologia", src: "https://www.youtube.com/embed/qXBmkswwRfw" },
+    { title: "História da ESCRAVIDÃO no Brasil Colônia e dos escravizados", src: "https://www.youtube.com/embed/PGV7whJWMI4" },
+    { title: "O Escravismo Colonial", src: "https://www.youtube.com/embed/DptP7kuSApU" },
+    { title: "Resistência à Escravidão no Brasil (vídeo-aula)", src: "https://www.youtube.com/embed/6RLW6W0I0bE" }
+  ],
+"10. Direitos Humanos, Diversidade e Protagonismos": [
+  { title: "Declaração dos Direitos Humanos - História", src: "https://www.youtube.com/embed/V1WO1Ml4MRE" },
+  { title: "O QUE É DIVERSIDADE CULTURAL? AULA COMPLETA", src: "https://www.youtube.com/embed/U-kBqPNpf14" },
+  { title: "História dos Direitos Humanos - Aula Completa", src: "https://www.youtube.com/embed/nRqYhDlV7o8" },
+    { title: "História dos Direitos Humanos", src: "https://www.youtube.com/embed/lqVSEKdQ7oE" },
+    { title: "Uma Breve História dos Direitos Humanos", src: "https://www.youtube.com/embed/WEyuktURcWc" },
+    { title: "Movimentos Sociais no Brasil", src: "https://www.youtube.com/embed/PVeXqkVzxhw" },
+    { title: "Movimentos Sociais e Minorias", src: "https://www.youtube.com/embed/qVKlaY4QoAk" },
+    { title: "Direitos Humanos: Conceito", src: "https://www.youtube.com/embed/6G_AUM2g8bM" },
+    { title: "Teoria Geral dos Direitos Humanos - Conceitos", src: "https://www.youtube.com/embed/YbwulFyC3Io" },
+    { title: "Conheça a história dos Povos Indígenas do Brasil", src: "https://www.youtube.com/embed/De5jXnMz6IU" },
+    { title: "Povos Indígenas do Brasil: Cultura e Organização Social", src: "https://www.youtube.com/embed/76-V6ZJKvFw" }
+  ]
+};
+
+
+
+function criarMenu() {
+  const menu = document.getElementById("menu");
+  for (const tema in modulos) {
+    const liTema = document.createElement("li");
+    liTema.textContent = tema;
+
+    const ulVideos = document.createElement("ul");
+    ulVideos.classList.add("submenu");
+
+    modulos[tema].forEach((video, index) => {
+      const liVideo = document.createElement("li");
+
+      const circle = document.createElement("span");
+      circle.classList.add("circle");
+
+      const titleSpan = document.createElement("span");
+      titleSpan.className = "video-title";
+      titleSpan.textContent = video.title;
+
+      const playButton = document.createElement("button");
+      playButton.textContent = "▶️";
+
+      playButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        carregarVideo(tema, index);
+        marcarAtivo(tema, index);
+        // Fecha menu no mobile após seleção
+        if(window.innerWidth <= 768) {
+          document.querySelector('nav').classList.remove('open');
+        }
+      });
+
+      liVideo.appendChild(circle);
+      liVideo.appendChild(titleSpan);
+      liVideo.appendChild(playButton);
+      ulVideos.appendChild(liVideo);
+    });
+
+    liTema.addEventListener("click", () => {
+      const aberto = ulVideos.style.display === "block";
+      document.querySelectorAll("nav ul.submenu").forEach(sub => sub.style.display = "none");
+      if (!aberto) ulVideos.style.display = "block";
+    });
+
+    menu.appendChild(liTema);
+    menu.appendChild(ulVideos);
+  }
+}
+
+function carregarVideo(tema, index) {
+  const player = document.getElementById("player-iframe");
+  const videoPlayerDiv = document.getElementById("video-player");
+  const message = document.getElementById("message");
+  const videoSrc = modulos[tema][index].src;
+  player.src = videoSrc + "?autoplay=1&rel=0";
+  videoPlayerDiv.style.display = "block";
+  message.style.display = "none";
+}
+
+function marcarAtivo(temaAtivo, videoAtivo) {
+  // Remove classes anteriores
+  document.querySelectorAll("nav ul.submenu li").forEach(li => {
+    li.classList.remove("active-theme");
+    li.querySelector(".circle").style.background = "red";
+  });
+
+  // Marca ativo atual
+  const submenus = document.querySelectorAll("nav ul.submenu");
+  for (let submenu of submenus) {
+    if (submenu.previousElementSibling.textContent === temaAtivo) {
+      const lis = submenu.querySelectorAll("li");
+      lis.forEach((li, i) => {
+        if (i === videoAtivo) {
+          li.classList.add("active-theme");
+          li.querySelector(".circle").style.background = "green";
+        }
+      });
+    }
+  }
+}
+
+function voltarParaInicio() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
+}
+
+function logout() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
+}
+
+// Alternar menu mobile
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+  const nav = document.querySelector("nav");
+  nav.classList.toggle("open");
+});
+
+// Fecha menu ao clicar fora no mobile
+document.addEventListener("click", (event) => {
+  const nav = document.querySelector("nav");
+  const toggle = document.querySelector(".menu-toggle");
+  if(window.innerWidth <= 768) {
+    if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+      nav.classList.remove("open");
+    }
+  }
+});
+
+criarMenu();
+</script>
+
+</body>
+</html>
+
