@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisão para os professores inscritos PSS - 2025</title>
+  <style>
+    /* Reset e base */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: row;
+      background: #fff;
+    }
+
+    header {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      background: #004080;
+      color: white;
+      padding: 15px 20px;
+      font-weight: bold;
+      font-size: 1.3em;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    /* MENU LATERAL - Desktop */
+    nav {
+      width: 250px;
+      background: #f0f0f0;
+      padding-top: 100px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+      position: fixed; /* fixo para desktop */
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 999;
+      transition: transform 0.3s ease;
+    }
+
+    nav ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    nav > ul > li {
+      padding: 12px 20px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: left;
+      user-select: none;
+    }
+
+    nav > ul > li:hover {
+      background: #ddd;
+    }
+
+    nav ul.submenu {
+      padding-left: 20px;
+      background: #fafafa;
+      width: 100%;
+      display: none;
+    }
+
+    nav ul.submenu li {
+      padding: 8px 5px;
+      cursor: pointer;
+      font-weight: normal;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav ul.submenu li:hover {
+      text-decoration: underline;
+    }
+
+    nav ul.submenu li.active-theme {
+      color: #004080;
+      font-weight: bold;
+    }
+
+    nav ul.submenu li .circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: red;
+      margin-right: 10px;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul.submenu li.active-theme .circle {
+      background: green !important;
+    }
+
+    nav ul.submenu li button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: transform 0.2s ease;
+    }
+
+    nav ul.submenu li button:hover {
+      transform: scale(1.2);
+    }
+
+    /* CONTEÚDO PRINCIPAL */
+    main {
+      flex-grow: 1;
+      padding: 120px 20px 20px 270px; /* espaço para menu lateral no desktop */
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    #video-player {
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    #video-player iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #message {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #imagens-iniciais {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    #imagens-iniciais iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    #intro-text {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+      background-color: #004080;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* BOTOES FIXOS */
+    .home-button, .logout-button {
+      position: fixed;
+      top: 10px;
+      z-index: 2000;
+    }
+    .home-button {
+      left: 10px;
+    }
+    .logout-button {
+      right: 10px;
+    }
+    .home-button button, .logout-button button {
+      font-size: 1.5em;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+    }
+    .home-button button {
+      background-color: #004080;
+    }
+    .logout-button button {
+      background-color: #800000;
+      font-size: 1.2em;
+    }
+
+    /* MENU HAMBURGUER PARA MOBILE */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 3000;
+      background: #004080;
+      color: white;
+      border: none;
+      font-size: 1.8em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        overflow: visible;
+      }
+      header {
+        top: 50px;
+        padding: 10px 15px;
+        font-size: 1.1em;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        background: #f0f0f0;
+        padding-top: 70px;
+        transform: translateX(-100%);
+        box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      }
+      nav.open {
+        transform: translateX(0);
+      }
+      main {
+        padding: 110px 15px 20px 15px;
+        margin-left: 0;
+        height: auto;
+        overflow: visible;
+        max-width: 100%;
+      }
+      #video-player {
+        height: 250px;
+        max-width: 100%;
+      }
+      #imagens-iniciais iframe {
+        height: 150px;
+      }
+      #intro-text {
+        max-width: 100%;
+        font-size: 1.2em;
+      }
+      .home-button {
+        top: 50px; /* Para não sobrepor o menu toggle */
+        left: 60px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .logout-button {
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Botão menu hamburguer para mobile -->
+<button class="menu-toggle" aria-label="Abrir menu">☰</button>
+
+<div class="home-button">
+  <button onclick="voltarParaInicio()">🏠 Início</button>
+</div>
+<div class="logout-button">
+  <button onclick="logout()">Logout</button>
+</div>
+
+<nav>
+  <ul id="menu"></ul>
+</nav>
+
+<main>
+  <div id="video-player">
+    <iframe id="player-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+  </div>
+
+  <div id="message">Selecione um tema no menu lateral ou nos 3 risquinhos se tiver no celular para seguir com seus estudos.</div>
+
+  <div id="intro-text">Abaixo algumas dicas para sua aula prática</div>
+
+  <div id="imagens-iniciais">
+    <iframe src="https://www.youtube.com/embed/VcBR6YpJWqk" title="Vídeo 1"></iframe>
+    <iframe src="https://www.youtube.com/embed/YPk06uwp5RE" title="Vídeo 2"></iframe>
+    <iframe src="https://www.youtube.com/embed/t0FDEjXCC8Q" title="Vídeo 3"></iframe>
+    <iframe src="https://www.youtube.com/embed/TCyfS3tAV-M" title="Vídeo 4"></iframe>
+    <iframe src="https://www.youtube.com/embed/xDBM27QyaqQ" title="Vídeo 5"></iframe>
+    <iframe src="https://www.youtube.com/embed/cmLgaVI9CVM" title="Vídeo 6"></iframe>
+  </div>
+</main>
+
+<script>
+const modulos = {
+  "Conceitos e Definições Fundamentais": [
+    { title: "O que é Espaço Geográfico? | Geografia 1ep.", src: "https://www.youtube.com/embed/hB3voCdCYlA" },
+    { title: "Paisagem, Lugar, Território e Região - Categorias Geográficas", src: "https://www.youtube.com/embed/EkUHCIY_mec" },
+    { title: "Conceitos Fundamentais da Geografia (Aula Completa)", src: "https://www.youtube.com/embed/GDFTKp2y5cQ" },
+    { title: "Conceitos de Espaço Geográfico, Região, Lugar, Território e Paisagem", src: "https://www.youtube.com/embed/ExJO6rncnwg" },
+    { title: "Conceitos Geográficos - Aula Completa de Geografia", src: "https://www.youtube.com/embed/eTdWIqgj1oQ" },
+    { title: "Conceitos de Lugar e Território Geográfico - Videoaula 6º ano", src: "https://www.youtube.com/embed/_G6hMdyHQkM" }
+  ],
+  "Povos Originários e Comunidades Tradicionais": [
+    { title: "Povos originários e comunidades tradicionais", src: "https://www.youtube.com/embed/gaODQamhn_M" },
+    { title: "Os povos originários e a transformação do espaço Geográfico - 6º ano", src: "https://www.youtube.com/embed/ODThhHbY89E" },
+    { title: "Povos Indígenas e Meio Ambiente", src: "https://www.youtube.com/embed/PMYH2PbAZVM" },
+    { title: "POVOS - Territórios, identidade e tradição (Documentário)", src: "https://www.youtube.com/embed/wp4rMHJzlqc" },
+    { title: "Povos e Comunidades Tradicionais e seus territórios", src: "https://www.youtube.com/embed/3Wa-TdF4-l0" },
+    { title: "Comunidades tradicionais e a preservação do meio ambiente", src: "https://www.youtube.com/embed/aGYpyvYNkyE" }
+  ],
+  "Setores Produtivos e Economia em Escalas Variadas": [
+    { title: "GEOGRAFÍA ECONÓMICA", src: "https://www.youtube.com/embed/KslriXPgHSk" },
+    { title: "La distribución de las actividades económicas primarias", src: "https://www.youtube.com/embed/_hJnYPv0cDg" },
+    { title: "El sector primario. El trabajo y su clasificación", src: "https://www.youtube.com/embed/INY7f3T3v1w" },
+    { title: "Indicadores econômicos - Brasil Escola", src: "https://www.youtube.com/embed/GqLLClc1H8g" },
+    { title: "Indicadores Socioeconômicos: IDH, PIB, PNB, coeficiente de GINI", src: "https://www.youtube.com/embed/fOY8jAvvfbg" },
+    { title: "Indicadores econômicos - Brasil Escola (revisão)", src: "https://www.youtube.com/embed/GqLLClc1H8g" }
+  ],
+  "Urbanização, Riscos, Desastres e Políticas Urbanas": [
+    { title: "Curso Desastres, crise climática e políticas urbanas (Aula 1)", src: "https://www.youtube.com/embed/N48WE2FbM8s" },
+    { title: "Curso Desastres, crise climática e políticas urbanas (Aula 6)", src: "https://www.youtube.com/embed/mr_gsErKdrQ" },
+    { title: "Planejamento Urbano Pós-Catástrofe: Reconstrução e Resiliência", src: "https://www.youtube.com/embed/9TCB5LUX2fA" },
+    { title: "Desastres ambientais e adaptação climática", src: "https://www.youtube.com/embed/fItos_BnaTk" },
+    { title: "Territórios de exclusão e vulnerabilidade social", src: "https://www.youtube.com/embed/3GhJBo4L_Og" },
+    { title: "Desastres e ocupação urbana em Salvador (BA)", src: "https://www.youtube.com/embed/iOVMfDhJPa8" }
+  ],
+  "Cartografia e Geotecnologias": [
+    { title: "CARTOGRAFIA | QUER QUE DESENHE | DESCOMPLICA", src: "https://www.youtube.com/embed/tR_rXa4BdpE" },
+    { title: "Tecnologias aplicadas à cartografia – Geografia – 6º ano", src: "https://www.youtube.com/embed/097xNEBusMI" },
+    { title: "Como Fazer Mapas no QGIS - O Guia Definitivo", src: "https://www.youtube.com/embed/vAQ9lQG1bIQ" },
+    { title: "Inserir Pontos em Mapas no QGIS Através das Coordenadas", src: "https://www.youtube.com/embed/srTuZYzsYjc" },
+    { title: "Geotecnologias Aplicadas ao Ensino de Cartografia", src: "https://www.youtube.com/embed/vfZnEBptjxE" },
+    { title: "COMO USAR O GOOGLE EARTH PRO", src: "https://www.youtube.com/embed/1Kln6OhwrPA" }
+  ],
+  "Formação e Mudanças do Território Brasileiro": [
+    { title: "A Formação do Território Brasileiro", src: "https://www.youtube.com/embed/KtoOt_zAgMQ" },
+    { title: "Geografia: Formação e regionalização do território brasileiro", src: "https://www.youtube.com/embed/U8scfd9ICsg" },
+    { title: "Geografia: Formação e regionalização do território brasileiro - 7º Ano", src: "https://www.youtube.com/embed/nX7yEluB09E" },
+    { title: "7º Ano - Formação do Território Brasileiro: Exploração Econômica", src: "https://www.youtube.com/embed/qvJYBM0AOBc" },
+    { title: "Regiões Brasileiras | Mudanças nas divisões", src: "https://www.youtube.com/embed/nZiCqPpBHnQ" },
+    { title: "Ocupação do espaço brasileiro", src: "https://www.youtube.com/embed/WybabiFtvvw" }
+  ],
+  "Indicadores Socioeconômicos e Demográficos": [
+    { title: "Indicadores Socioeconômicos: IDH, PIB, PNB, coeficiente de GINI", src: "https://www.youtube.com/embed/fOY8jAvvfbg" },
+    { title: "Indicadores econômicos - Brasil Escola", src: "https://www.youtube.com/embed/GqLLClc1H8g" },
+    { title: "IDH e Desenvolvimento Humano - Aula Explicativa", src: "https://www.youtube.com/embed/b4D1xp1OBY8" },
+    { title: "Índice de Gini - Desigualdade social", src: "https://www.youtube.com/embed/kNVDsZ8sUBg" },
+    { title: "Indicadores Demográficos e Sociais", src: "https://www.youtube.com/embed/WQu2MsxTy-E" },
+    { title: "Desmatamento no Brasil - Aspectos Socioambientais", src: "https://www.youtube.com/embed/7TY2H_9QO5Y" }
+  ],
+  "População, Migrações e Diversidade Cultural": [
+    { title: "Diversidade Cultural Brasileira dos Imigrantes", src: "https://www.youtube.com/embed/1fZ7PT2v9f8" },
+    { title: "MIGRAÇÕES, REFUGIADOS E DIVERSIDADE CULTURAL", src: "https://www.youtube.com/embed/8jgh8YJdj2k" },
+    { title: "O QUE É DIVERSIDADE CULTURAL? AULA COMPLETA", src: "https://www.youtube.com/embed/U-kBqPNpf14" },
+    { title: "Imigração e chegada de refugiados trazem mudanças sociais", src: "https://www.youtube.com/embed/tvOcAY2AHlE" },
+    { title: "Migração e Demografia - Aula Completa", src: "https://www.youtube.com/embed/FQWqSnSRpDc" },
+    { title: "População, Diversidade Étnico-Racial e Cultural no Brasil", src: "https://www.youtube.com/embed/8rJu8-ZOeMw" }
+  ],
+  "Estudo dos Continentes": [
+    {
+      title: "Os Continentes da Terra",
+      src: "https://www.youtube.com/embed/Xmn979VHh8w"
+    },
+    {
+      title: "GEOGRAFIA DOS CONTINENTES",
+      src: "https://www.youtube.com/embed/Ph1JVwsbYwk"
+    },
+    {
+      title: "Continentes e Oceanos",
+      src: "https://www.youtube.com/embed/BHBc2YQgs_s"
+    },
+    {
+      title: "Vamos Aprender... Continentes e Oceanos",
+      src: "https://www.youtube.com/embed/THlMdO2nsx0"
+    },
+    {
+      title: "CONTINENTES para crianças",
+      src: "https://www.youtube.com/embed/l5_dcoioiB8"
+    },
+    {
+      title: "Continents of the world - Brazil School",
+      src: "https://www.youtube.com/embed/SFUq4LJ0hBU"
+    }
+  ],
+  "Geopolítica e Relações Internacionais": [
+    {
+      title: "Geopolítica e Relações Internacionais - Aula 01",
+      src: "https://www.youtube.com/embed/yXerjLuAd78"
+    },
+    {
+      title: "Geopolítica e as Relações Internacionais - Aula 02",
+      src: "https://www.youtube.com/embed/NkbtIO2fc_4"
+    },
+    {
+      title: "Geopolítica e as Relações Internacionais - Aula N07",
+      src: "https://www.youtube.com/embed/U9mm8Q5Vl7k"
+    },
+    {
+      title: "Geopolítica hoje e Relações Internacionais",
+      src: "https://www.youtube.com/embed/t-65mtxhr40"
+    },
+    {
+      title: "GEOPOLÍTICA E RELAÇÕES INTERNACIONAIS - EJA IV - AULA N°002",
+      src: "https://www.youtube.com/embed/v7I_-iUWXdw"
+    },
+    {
+      title: "Curso de Geopolítica - Playlist",
+      src: "https://www.youtube.com/embed/videoseries?list=PLh-pzm2_vyywSECzNV65mqq6DM6PduBg_"
+    }
+  ]
+};
+
+
+function criarMenu() {
+  const menu = document.getElementById("menu");
+  for (const tema in modulos) {
+    const liTema = document.createElement("li");
+    liTema.textContent = tema;
+
+    const ulVideos = document.createElement("ul");
+    ulVideos.classList.add("submenu");
+
+    modulos[tema].forEach((video, index) => {
+      const liVideo = document.createElement("li");
+
+      const circle = document.createElement("span");
+      circle.classList.add("circle");
+
+      const titleSpan = document.createElement("span");
+      titleSpan.className = "video-title";
+      titleSpan.textContent = video.title;
+
+      const playButton = document.createElement("button");
+      playButton.textContent = "▶️";
+
+      playButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        carregarVideo(tema, index);
+        marcarAtivo(tema, index);
+        // Fecha menu no mobile após seleção
+        if(window.innerWidth <= 768) {
+          document.querySelector('nav').classList.remove('open');
+        }
+      });
+
+      liVideo.appendChild(circle);
+      liVideo.appendChild(titleSpan);
+      liVideo.appendChild(playButton);
+      ulVideos.appendChild(liVideo);
+    });
+
+    liTema.addEventListener("click", () => {
+      const aberto = ulVideos.style.display === "block";
+      document.querySelectorAll("nav ul.submenu").forEach(sub => sub.style.display = "none");
+      if (!aberto) ulVideos.style.display = "block";
+    });
+
+    menu.appendChild(liTema);
+    menu.appendChild(ulVideos);
+  }
+}
+
+function carregarVideo(tema, index) {
+  const player = document.getElementById("player-iframe");
+  const videoPlayerDiv = document.getElementById("video-player");
+  const message = document.getElementById("message");
+  const videoSrc = modulos[tema][index].src;
+  player.src = videoSrc + "?autoplay=1&rel=0";
+  videoPlayerDiv.style.display = "block";
+  message.style.display = "none";
+}
+
+function marcarAtivo(temaAtivo, videoAtivo) {
+  // Remove classes anteriores
+  document.querySelectorAll("nav ul.submenu li").forEach(li => {
+    li.classList.remove("active-theme");
+    li.querySelector(".circle").style.background = "red";
+  });
+
+  // Marca ativo atual
+  const submenus = document.querySelectorAll("nav ul.submenu");
+  for (let submenu of submenus) {
+    if (submenu.previousElementSibling.textContent === temaAtivo) {
+      const lis = submenu.querySelectorAll("li");
+      lis.forEach((li, i) => {
+        if (i === videoAtivo) {
+          li.classList.add("active-theme");
+          li.querySelector(".circle").style.background = "green";
+        }
+      });
+    }
+  }
+}
+
+function voltarParaInicio() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
+}
+
+function logout() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
+}
+
+// Alternar menu mobile
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+  const nav = document.querySelector("nav");
+  nav.classList.toggle("open");
+});
+
+// Fecha menu ao clicar fora no mobile
+document.addEventListener("click", (event) => {
+  const nav = document.querySelector("nav");
+  const toggle = document.querySelector(".menu-toggle");
+  if(window.innerWidth <= 768) {
+    if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+      nav.classList.remove("open");
+    }
+  }
+});
+
+criarMenu();
+</script>
+
+</body>
+</html>
+
