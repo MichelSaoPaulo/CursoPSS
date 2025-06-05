@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Revisão para os professores inscritos PSS - 2025</title>
+  <style>
+    /* Reset e base */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      flex-direction: row;
+      background: #fff;
+    }
+
+    header {
+      position: fixed;
+      top: 50px;
+      left: 0;
+      right: 0;
+      background: #004080;
+      color: white;
+      padding: 15px 20px;
+      font-weight: bold;
+      font-size: 1.3em;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    /* MENU LATERAL - Desktop */
+    nav {
+      width: 250px;
+      background: #f0f0f0;
+      padding-top: 100px;
+      overflow-y: auto;
+      border-right: 1px solid #ccc;
+      position: fixed; /* fixo para desktop */
+      top: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 999;
+      transition: transform 0.3s ease;
+    }
+
+    nav ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    nav > ul > li {
+      padding: 12px 20px;
+      border-bottom: 1px solid #ddd;
+      cursor: pointer;
+      font-weight: bold;
+      text-align: left;
+      user-select: none;
+    }
+
+    nav > ul > li:hover {
+      background: #ddd;
+    }
+
+    nav ul.submenu {
+      padding-left: 20px;
+      background: #fafafa;
+      width: 100%;
+      display: none;
+    }
+
+    nav ul.submenu li {
+      padding: 8px 5px;
+      cursor: pointer;
+      font-weight: normal;
+      color: #333;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav ul.submenu li:hover {
+      text-decoration: underline;
+    }
+
+    nav ul.submenu li.active-theme {
+      color: #004080;
+      font-weight: bold;
+    }
+
+    nav ul.submenu li .circle {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: red;
+      margin-right: 10px;
+      flex-shrink: 0;
+      transition: background-color 0.3s ease;
+    }
+
+    nav ul.submenu li.active-theme .circle {
+      background: green !important;
+    }
+
+    nav ul.submenu li button {
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.2em;
+      transition: transform 0.2s ease;
+    }
+
+    nav ul.submenu li button:hover {
+      transform: scale(1.2);
+    }
+
+    /* CONTEÚDO PRINCIPAL */
+    main {
+      flex-grow: 1;
+      padding: 120px 20px 20px 270px; /* espaço para menu lateral no desktop */
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: #fff;
+      height: 100vh;
+      box-sizing: border-box;
+    }
+
+    #video-player {
+      width: 100%;
+      max-width: 900px;
+      height: 500px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      margin-bottom: 20px;
+      display: none;
+    }
+
+    #video-player iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    #message {
+      font-size: 1.2em;
+      color: #555;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    #imagens-iniciais {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      width: 100%;
+      max-width: 1000px;
+      margin-top: 20px;
+    }
+
+    #imagens-iniciais iframe {
+      width: 100%;
+      height: 200px;
+      border: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    #intro-text {
+      font-size: 1.4em;
+      font-weight: bold;
+      color: #fff;
+      background-color: #004080;
+      padding: 10px 20px;
+      border-radius: 10px;
+      text-align: center;
+      box-shadow: 0 0 15px #00ffff, 0 0 25px #00ffff;
+      text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff;
+      margin-bottom: 10px;
+      width: 100%;
+      max-width: 900px;
+    }
+
+    /* BOTOES FIXOS */
+    .home-button, .logout-button {
+      position: fixed;
+      top: 10px;
+      z-index: 2000;
+    }
+    .home-button {
+      left: 10px;
+    }
+    .logout-button {
+      right: 10px;
+    }
+    .home-button button, .logout-button button {
+      font-size: 1.5em;
+      padding: 6px 12px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      color: white;
+    }
+    .home-button button {
+      background-color: #004080;
+    }
+    .logout-button button {
+      background-color: #800000;
+      font-size: 1.2em;
+    }
+
+    /* MENU HAMBURGUER PARA MOBILE */
+    .menu-toggle {
+      display: none;
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 3000;
+      background: #004080;
+      color: white;
+      border: none;
+      font-size: 1.8em;
+      padding: 6px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    /* RESPONSIVO */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+        overflow: visible;
+      }
+      header {
+        top: 50px;
+        padding: 10px 15px;
+        font-size: 1.1em;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        width: 250px;
+        background: #f0f0f0;
+        padding-top: 70px;
+        transform: translateX(-100%);
+        box-shadow: 2px 0 5px rgba(0,0,0,0.5);
+      }
+      nav.open {
+        transform: translateX(0);
+      }
+      main {
+        padding: 110px 15px 20px 15px;
+        margin-left: 0;
+        height: auto;
+        overflow: visible;
+        max-width: 100%;
+      }
+      #video-player {
+        height: 250px;
+        max-width: 100%;
+      }
+      #imagens-iniciais iframe {
+        height: 150px;
+      }
+      #intro-text {
+        max-width: 100%;
+        font-size: 1.2em;
+      }
+      .home-button {
+        top: 50px; /* Para não sobrepor o menu toggle */
+        left: 60px;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .logout-button {
+        top: 10px;
+        right: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Botão menu hamburguer para mobile -->
+<button class="menu-toggle" aria-label="Abrir menu">☰</button>
+
+<div class="home-button">
+  <button onclick="voltarParaInicio()">🏠 Início</button>
+</div>
+<div class="logout-button">
+  <button onclick="logout()">Logout</button>
+</div>
+
+<nav>
+  <ul id="menu"></ul>
+</nav>
+
+<main>
+  <div id="video-player">
+    <iframe id="player-iframe" src="" allowfullscreen allow="autoplay"></iframe>
+  </div>
+
+  <div id="message">Selecione um tema no menu lateral ou nos 3 risquinhos se tiver no celular para seguir com seus estudos.</div>
+
+  <div id="intro-text">Abaixo algumas dicas para sua aula prática</div>
+
+  <div id="imagens-iniciais">
+    <iframe src="https://www.youtube.com/embed/VcBR6YpJWqk" title="Vídeo 1"></iframe>
+    <iframe src="https://www.youtube.com/embed/YPk06uwp5RE" title="Vídeo 2"></iframe>
+    <iframe src="https://www.youtube.com/embed/t0FDEjXCC8Q" title="Vídeo 3"></iframe>
+    <iframe src="https://www.youtube.com/embed/TCyfS3tAV-M" title="Vídeo 4"></iframe>
+    <iframe src="https://www.youtube.com/embed/xDBM27QyaqQ" title="Vídeo 5"></iframe>
+    <iframe src="https://www.youtube.com/embed/cmLgaVI9CVM" title="Vídeo 6"></iframe>
+  </div>
+</main>
+
+<script>
+const modulos = {
+  "Ensino de Ciências por Investigação": [
+    { title: "Aula 1 - Ensino de Ciências por Investigação", src: "https://www.youtube.com/embed/a4tU_Ztf0nQ" },
+    { title: "Anna Carvalho - Condições para Implementação em Sala de Aula", src: "https://www.youtube.com/embed/ftfqKMD2D_c" },
+    { title: "Ensino de Ciências - Ana Maria Pessoa de Carvalho", src: "https://www.youtube.com/embed/IMyfqxACezE" }
+  ],
+
+  "Ensino de Geografia": [
+    { title: "Resumo: Ensino de Geografia, Castellar e Vilhena", src: "https://www.youtube.com/embed/aREtYOo3-w8" },
+    { title: "Aula 06 - Temática Indígena e Currículo: Geografia", src: "https://www.youtube.com/embed/-_AnJd4g7Q8" },
+    { title: "Ensino de Geografia - Sonia Castellar e Jerusa Vilhena", src: "https://www.youtube.com/embed/IMyfqxACezE" }
+  ],
+
+  "Gêneros Orais e Escritos na Escola": [
+    { title: "SCHNEUWLY E DOLZ - Gêneros orais e escritos na escola", src: "https://www.youtube.com/embed/X0A2Q3uyMes" },
+    { title: "Parte 1: Gêneros orais e escritos na escola", src: "https://www.youtube.com/embed/DbAGAZn0s9Q" },
+    { title: "GÊNEROS ORAIS E ESCRITOS NA ESCOLA AULA 1", src: "https://www.youtube.com/embed/6-V1dRn8HiY" }
+  ],
+
+  "Psicogênese da Língua Escrita": [
+    { title: "Psicogênese da Língua Escrita - Emília Ferreiro e Ana Teberosky", src: "https://www.youtube.com/embed/2MRDKIMMnM8" },
+    { title: "Psicogênese da Língua Escrita - Instituto Consulplan", src: "https://www.youtube.com/embed/JaKOQ6AMpoE" }
+  ],
+
+  "Ler e Escrever na Escola": [
+    { title: "Ler e Escrever na Escola: O Real, o Possível e o Necessário", src: "https://www.youtube.com/embed/4qbavOH4FxI" },
+    { title: "Ler e Escrever na Escola - Delia Lerner", src: "https://www.youtube.com/embed/93m8EjSJ5Lg" }
+  ],
+
+  "Alfabetização Científica, Ensino por Investigação e Argumentação": [
+    { title: "Alfabetização científica, ensino por investigação e argumentação - Sasseron", src: "https://www.youtube.com/embed/QQYUhPeXoSc" },
+    { title: "Importância da argumentação no ensino de ciências", src: "https://www.youtube.com/embed/YkZuSi_V4eE" },
+    { title: "Alfabetização científica e ensino por investigação", src: "https://www.youtube.com/embed/E1hnczpAQY0" }
+  ],
+
+  "Ensino de História nos Anos Iniciais do Ensino Fundamental": [
+    { title: "O ensino de História nos anos iniciais do Ensino Fundamental | Parte 01", src: "https://www.youtube.com/embed/mZxkuSKjgTU" },
+    { title: "O ensino de História no anos iniciais do ensino fundamental", src: "https://www.youtube.com/embed/o7ohL0jnU5c" }
+  ],
+
+  "Ler, Escrever e Resolver Problemas na Matemática": [
+    { title: "Ler, escrever e resolver problemas | Kátia Smole e Maria Diniz", src: "https://www.youtube.com/embed/cfVzEoUIRac" },
+    { title: "Kátia Smole e Maria Diniz (Org.) I Capítulo VIII", src: "https://www.youtube.com/embed/vqyBEUH424I" },
+    { title: "Kátia Smole e Maria Diniz (Org.) I Capítulo VII", src: "https://www.youtube.com/embed/ho0GsNO7jvA" }
+  ],
+
+  "Métodos de Alfabetização": [
+    { title: "Magda Soares - Alfabetização: a questão dos métodos", src: "https://www.youtube.com/embed/Y1UkSxT6qjw" }
+  ],
+
+  "Estratégias de Leitura": [
+    { title: "Estratégias de leitura - Isabel Solé", src: "https://www.youtube.com/embed/6AvWzToveZo" }
+  ]
+};
+
+
+
+function criarMenu() {
+  const menu = document.getElementById("menu");
+  for (const tema in modulos) {
+    const liTema = document.createElement("li");
+    liTema.textContent = tema;
+
+    const ulVideos = document.createElement("ul");
+    ulVideos.classList.add("submenu");
+
+    modulos[tema].forEach((video, index) => {
+      const liVideo = document.createElement("li");
+
+      const circle = document.createElement("span");
+      circle.classList.add("circle");
+
+      const titleSpan = document.createElement("span");
+      titleSpan.className = "video-title";
+      titleSpan.textContent = video.title;
+
+      const playButton = document.createElement("button");
+      playButton.textContent = "▶️";
+
+      playButton.addEventListener("click", (e) => {
+        e.stopPropagation();
+        carregarVideo(tema, index);
+        marcarAtivo(tema, index);
+        // Fecha menu no mobile após seleção
+        if(window.innerWidth <= 768) {
+          document.querySelector('nav').classList.remove('open');
+        }
+      });
+
+      liVideo.appendChild(circle);
+      liVideo.appendChild(titleSpan);
+      liVideo.appendChild(playButton);
+      ulVideos.appendChild(liVideo);
+    });
+
+    liTema.addEventListener("click", () => {
+      const aberto = ulVideos.style.display === "block";
+      document.querySelectorAll("nav ul.submenu").forEach(sub => sub.style.display = "none");
+      if (!aberto) ulVideos.style.display = "block";
+    });
+
+    menu.appendChild(liTema);
+    menu.appendChild(ulVideos);
+  }
+}
+
+function carregarVideo(tema, index) {
+  const player = document.getElementById("player-iframe");
+  const videoPlayerDiv = document.getElementById("video-player");
+  const message = document.getElementById("message");
+  const videoSrc = modulos[tema][index].src;
+  player.src = videoSrc + "?autoplay=1&rel=0";
+  videoPlayerDiv.style.display = "block";
+  message.style.display = "none";
+}
+
+function marcarAtivo(temaAtivo, videoAtivo) {
+  // Remove classes anteriores
+  document.querySelectorAll("nav ul.submenu li").forEach(li => {
+    li.classList.remove("active-theme");
+    li.querySelector(".circle").style.background = "red";
+  });
+
+  // Marca ativo atual
+  const submenus = document.querySelectorAll("nav ul.submenu");
+  for (let submenu of submenus) {
+    if (submenu.previousElementSibling.textContent === temaAtivo) {
+      const lis = submenu.querySelectorAll("li");
+      lis.forEach((li, i) => {
+        if (i === videoAtivo) {
+          li.classList.add("active-theme");
+          li.querySelector(".circle").style.background = "green";
+        }
+      });
+    }
+  }
+}
+
+function voltarParaInicio() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
+}
+
+function logout() {
+  window.location.href = "https://michelsaopaulo.github.io/CursoPSS/"; // ajuste para seu endereço real
+}
+
+// Alternar menu mobile
+document.querySelector(".menu-toggle").addEventListener("click", () => {
+  const nav = document.querySelector("nav");
+  nav.classList.toggle("open");
+});
+
+// Fecha menu ao clicar fora no mobile
+document.addEventListener("click", (event) => {
+  const nav = document.querySelector("nav");
+  const toggle = document.querySelector(".menu-toggle");
+  if(window.innerWidth <= 768) {
+    if (!nav.contains(event.target) && !toggle.contains(event.target)) {
+      nav.classList.remove("open");
+    }
+  }
+});
+
+criarMenu();
+</script>
+
+</body>
+</html>
+
