@@ -321,42 +321,189 @@
 
 <script>
 const modulos = {
-  "Raciocínio Algébrico": [
-    { title: "Raciocínio algébrico", src: "https://www.youtube.com/embed/uaciJfcvqU4" },
-    { title: "Expressões Algébricas", src: "https://www.youtube.com/embed/nUp4l3d56q4" },
-    { title: "Expressões Algébricas", src: "https://www.youtube.com/embed/TyUVBbsG8ag" },
-    { title: "Pensamento algébrico", src: "https://www.youtube.com/embed/ttTidTt8uHY" },
-    { title: "Raciocínio algébrico", src: "https://www.youtube.com/embed/WdxTDtZmxNQ" }
+  "1. Conhecimentos (conteúdos fundamentais)": [
+    {
+      title: "Expressões Algébricas - Aula Completa",
+      src: "https://www.youtube.com/embed/TyUVBbsG8ag"
+    },
+    {
+      title: "Álgebra para Iniciantes | Como Traduzir o Problema",
+      src: "https://www.youtube.com/embed/LTx-Jd7pyZ8"
+    }
   ],
   "Raciocínio Numérico": [
-    { title: "Logiquiz: Conjuntos Numéricos", src: "https://www.youtube.com/embed/FO6tZeSepj0" },
-    { title: "5 Questões de Raciocínio Lógico - Nível 1", src: "https://www.youtube.com/embed/_Xa7IhHwSxE" },
-    { title: "Desafio de Matemática Numérico", src: "https://www.youtube.com/embed/2GX9nRUkOxA" },
-    { title: "Sequências numéricas", src: "https://www.youtube.com/embed/8hJ6Otc4qwY" },
-    { title: "Desafio de Sequência Lógica", src: "https://www.youtube.com/embed/pdOxkEFTOcA" }
+    {
+      title: "Desafio de Matemática Numérico [Raciocínio Lógico]",
+      src: "https://www.youtube.com/embed/2GX9nRUkOxA"
+    },
+    {
+      title: "Sequências Numéricas | Matemática Básica",
+      src: "https://www.youtube.com/embed/mE6_YVkTDr0"
+    }
   ],
-  "Estatística": [
-    { title: "Conceitos estatísticos", src: "https://www.youtube.com/embed/AoQvim2aqM0" },
-    { title: "Estatística: Médias - Aula 1", src: "https://www.youtube.com/embed/Hnu2l6Xr5eI" },
-    { title: "Média, Moda e Mediana - Aula 2", src: "https://www.youtube.com/embed/0qZjgYXBJw0" },
-    { title: "Estatística - Prof. Ivan Valdomiro", src: "https://www.youtube.com/embed/yUAZuRPgqkg" },
-    { title: "Estatística: Conceitos básicos (21/12)", src: "https://www.youtube.com/embed/0LiQ3xk3DMo" }
+  "Raciocínio Estatístico": [
+    {
+      title: "Conceitos Estatísticos | Gráficos e Tabelas",
+      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
+    },
+    {
+      title: "Estatística Básica, um Começo - Aula 67",
+      src: "https://www.youtube.com/embed/HwgcoRBGwZo"
+    }
+  ],
+  "Raciocínio Geométrico": [
+    {
+      title: "Matemática Para Concursos: Geometria Básica!",
+      src: "https://www.youtube.com/embed/gP_UtoyFn_w"
+    },
+    {
+      title: "Noções de Geometria - Matemática Básica",
+      src: "https://www.youtube.com/embed/5GZx3QJ9_Es"
+    }
+  ],
+  "Raciocínio Probabilístico": [
+    {
+      title: "Probabilidade | Aprenda em 13min",
+      src: "https://www.youtube.com/embed/iNCkGogNtKI"
+    },
+    {
+      title: "Probabilidade - Como Calcular?",
+      src: "https://www.youtube.com/embed/HWlZtfp-TKQ"
+    }
+  ],
+  "Conhecimento do Currículo": [
+    {
+      title: "Sequência Correta para Estudar os Assuntos de Matemática para o ENEM",
+      src: "https://www.youtube.com/embed/4cLxoPirr8E"
+    },
+    {
+      title: "Matemática Básica | Tudo o que Você Precisa Saber",
+      src: "https://www.youtube.com/embed/Qiur3mzFono"
+    }
+  ],
+  "Criação e Elaboração de Problemas": [
+    {
+      title: "Problemas Aritméticos, Geométricos e Matriciais",
+      src: "https://www.youtube.com/embed/57JpwjXQ_9E"
+    },
+    {
+      title: "Expressões Algébricas | Exercícios",
+      src: "https://www.youtube.com/embed/nUp4l3d56q4"
+    }
+  ],
+  "Proporcionalidade e Relações Matemáticas": [
+    {
+      title: "Sequências Numéricas em Exercícios [Raciocínio Lógico]",
+      src: "https://www.youtube.com/embed/oztKXOtGiCo"
+    },
+    {
+      title: "Sequências Lógicas de Números, Letras, Palavras e Figuras - Aula 1",
+      src: "https://www.youtube.com/embed/RGX-ddHvGns"
+    }
+  ],
+  "Equivalência e Igualdade": [
+    {
+      title: "Expressões Algébricas | Rápido e Fácil",
+      src: "https://www.youtube.com/embed/8NNA-8rimNs"
+    },
+    {
+      title: "Expressões Algébricas - Aula Completa",
+      src: "https://www.youtube.com/embed/xvtayc6ho-I"
+    }
+  ],
+  "Números e Notações": [
+    {
+      title: "Álgebra para Iniciantes | Como Traduzir o Problema",
+      src: "https://www.youtube.com/embed/LTx-Jd7pyZ8"
+    },
+    {
+      title: "Expressões Algébricas - Aula Completa",
+      src: "https://www.youtube.com/embed/TyUVBbsG8ag"
+    }
+  ],
+  "Funções e Polinômios": [
+    {
+      title: "Vem Aprender Álgebra Produtos Notáveis",
+      src: "https://www.youtube.com/embed/uzpzdPqzrpU"
+    },
+    {
+      title: "Funções Polinomiais - Aula Completa",
+      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
+    }
+  ],
+  "Otimização e Geometria Analítica": [
+    {
+      title: "Geometria Espacial: Cálculo de Área e Volume",
+      src: "https://www.youtube.com/embed/6PpNrCkDwcM"
+    },
+    {
+      title: "Geometria Espacial: Cálculo de Área e Volume",
+      src: "https://www.youtube.com/embed/6PpNrCkDwcM"
+    }
+  ],
+  "Medidas e Grandezas": [
+    {
+      title: "Geometria Plana | Exercícios Resolvidos",
+      src: "https://www.youtube.com/embed/Qq_iESIHSNc"
+    },
+    {
+      title: "Aula 91 - Medidas de Volume e Geometria Básica em um",
+      src: "https://www.youtube.com/embed/kaflJhi-IpE"
+    }
   ],
   "Geometria": [
-    { title: "Geometria Plana (Curso Completo)", src: "https://www.youtube.com/embed/yG0TOaJcqoM" },
-    { title: "Introdução - Ângulos (Aula 1)", src: "https://www.youtube.com/embed/0CnUdzmpO8E" },
-    { title: "MATEMÁTICAS E SUAS TECNOLOGIAS | GEOMETRIA PLANA", src: "https://www.youtube.com/embed/1Ux2lZx39PE" },
-    { title: "Figuras Planas, Áreas e Volumes", src: "https://www.youtube.com/embed/7mUreSj9L8I" },
-    { title: "Geometria Espacial: Área e Volume", src: "https://www.youtube.com/embed/6PpNrCkDwcM" }
+    {
+      title: "Noções de Geometria - Matemática Básica",
+      src: "https://www.youtube.com/embed/5GZx3QJ9_Es"
+    },
+    {
+      title: "Geometria Espacial: Cálculo de Área e Volume",
+      src: "https://www.youtube.com/embed/6PpNrCkDwcM"
+    }
   ],
-  "Probabilidade": [
-    { title: "PROBABILIDADE (ENSINO MÉDIO)", src: "https://www.youtube.com/embed/GDf8TkPh59k" },
-    { title: "Probabilidade - Professora Angela", src: "https://www.youtube.com/embed/vAheWef9mKw" },
-    { title: "Probabilidade de Eventos", src: "https://www.youtube.com/embed/HdOInqYuPnM" },
-    { title: "Probabilidade com apenas um exercício", src: "https://www.youtube.com/embed/jPnBJr522Nk" },
-    { title: "Probabilidade da união de dois eventos", src: "https://www.youtube.com/embed/t_S9oaYvTUE" }
+  "Trigonometria": [
+    {
+      title: "Como Aprender Geometria? | 5 Níveis do Conhecimento Geométrico",
+      src: "https://www.youtube.com/embed/y7Iq00vC7zU"
+    },
+    {
+      title: "Trigonometria Básica | Aula Completa",
+      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
+    }
+  ],
+  "Geometria Analítica": [
+    {
+      title: "Geometria Analítica | Equações da Reta",
+      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
+    },
+    {
+      title: "Geometria Analítica | Equações da Reta",
+      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
+    }
+  ],
+  "Probabilidade e Estatística": [
+    {
+      title: "Introdução à Estatística Descritiva",
+      src: "https://www.youtube.com/embed/pnpq0w7d5Mw"
+    },
+    {
+      title: "Estatística Básica, um Começo - Aula 67",
+      src: "https://www.youtube.com/embed/HwgcoRBGwZo"
+    }
+  ],
+  "Pensamento Computacional": [
+    {
+      title: "Como Interpretar e Resolver Raciocínio Lógico de Forma Simples e Fácil",
+      src: "https://www.youtube.com/embed/qbscFp0y7Jw"
+    },
+    {
+      title: "Como Interpretar e Resolver Raciocínio Lógico de Forma Simples e Fácil",
+      src: "https://www.youtube.com/embed/qbscFp0y7Jw"
+    }
   ]
 };
+
+
 
 function criarMenu() {
   const menu = document.getElementById("menu");
