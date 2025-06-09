@@ -321,184 +321,168 @@
 
 <script>
 const modulos = {
-  "1. Conhecimentos (conteúdos fundamentais)": [
+  "Conceitos e Definições Fundamentais": [
+    { title: "O que é Espaço Geográfico? | Geografia 1ep.", src: "https://www.youtube.com/embed/hB3voCdCYlA" },
+    { title: "Paisagem, Lugar, Território e Região - Categorias Geográficas", src: "https://www.youtube.com/embed/EkUHCIY_mec" },
+    { title: "Conceitos Fundamentais da Geografia (Aula Completa)", src: "https://www.youtube.com/embed/GDFTKp2y5cQ" },
+    { title: "Conceitos de Espaço Geográfico, Região, Lugar, Território e Paisagem", src: "https://www.youtube.com/embed/ExJO6rncnwg" },
+    { title: "Conceitos Geográficos - Aula Completa de Geografia", src: "https://www.youtube.com/embed/eTdWIqgj1oQ" },
+    { title: "Conceitos de Lugar e Território Geográfico - Videoaula 6º ano", src: "https://www.youtube.com/embed/_G6hMdyHQkM" }
+  ],
+  "Povos Originários e Comunidades Tradicionais": [
+    { title: "Povos originários e comunidades tradicionais", src: "https://www.youtube.com/embed/gaODQamhn_M" },
+    { title: "Os povos originários e a transformação do espaço Geográfico - 6º ano", src: "https://www.youtube.com/embed/ODThhHbY89E" },
+    { title: "Povos Indígenas e Meio Ambiente", src: "https://www.youtube.com/embed/PMYH2PbAZVM" },
+    { title: "POVOS - Territórios, identidade e tradição (Documentário)", src: "https://www.youtube.com/embed/wp4rMHJzlqc" },
+    { title: "Povos e Comunidades Tradicionais e seus territórios", src: "https://www.youtube.com/embed/3Wa-TdF4-l0" },
+    { title: "Comunidades tradicionais e a preservação do meio ambiente", src: "https://www.youtube.com/embed/aGYpyvYNkyE" }
+  ],
+  "Setores Produtivos e Economia em Escalas Variadas": [
+    { title: "GEOGRAFÍA ECONÓMICA", src: "https://www.youtube.com/embed/KslriXPgHSk" },
+    { title: "La distribución de las actividades económicas primarias", src: "https://www.youtube.com/embed/_hJnYPv0cDg" },
+    { title: "El sector primario. El trabajo y su clasificación", src: "https://www.youtube.com/embed/INY7f3T3v1w" },
+    { title: "Indicadores econômicos - Brasil Escola", src: "https://www.youtube.com/embed/GqLLClc1H8g" },
+    { title: "Indicadores Socioeconômicos: IDH, PIB, PNB, coeficiente de GINI", src: "https://www.youtube.com/embed/fOY8jAvvfbg" },
+    { title: "Indicadores econômicos - Brasil Escola (revisão)", src: "https://www.youtube.com/embed/GqLLClc1H8g" }
+  ],
+  "Urbanização, Riscos, Desastres e Políticas Urbanas": [
+    { title: "Curso Desastres, crise climática e políticas urbanas (Aula 1)", src: "https://www.youtube.com/embed/N48WE2FbM8s" },
+    { title: "Curso Desastres, crise climática e políticas urbanas (Aula 6)", src: "https://www.youtube.com/embed/mr_gsErKdrQ" },
+    { title: "Planejamento Urbano Pós-Catástrofe: Reconstrução e Resiliência", src: "https://www.youtube.com/embed/9TCB5LUX2fA" },
+    { title: "Desastres ambientais e adaptação climática", src: "https://www.youtube.com/embed/fItos_BnaTk" },
+    { title: "Territórios de exclusão e vulnerabilidade social", src: "https://www.youtube.com/embed/3GhJBo4L_Og" },
+    { title: "Desastres e ocupação urbana em Salvador (BA)", src: "https://www.youtube.com/embed/iOVMfDhJPa8" }
+  ],
+  "Cartografia e Geotecnologias": [
+    { title: "CARTOGRAFIA | QUER QUE DESENHE | DESCOMPLICA", src: "https://www.youtube.com/embed/tR_rXa4BdpE" },
+    { title: "Tecnologias aplicadas à cartografia – Geografia – 6º ano", src: "https://www.youtube.com/embed/097xNEBusMI" },
+    { title: "Como Fazer Mapas no QGIS - O Guia Definitivo", src: "https://www.youtube.com/embed/vAQ9lQG1bIQ" },
+    { title: "Inserir Pontos em Mapas no QGIS Através das Coordenadas", src: "https://www.youtube.com/embed/srTuZYzsYjc" },
+    { title: "Geotecnologias Aplicadas ao Ensino de Cartografia", src: "https://www.youtube.com/embed/vfZnEBptjxE" },
+    { title: "COMO USAR O GOOGLE EARTH PRO", src: "https://www.youtube.com/embed/1Kln6OhwrPA" }
+  ],
+  "Formação e Mudanças do Território Brasileiro": [
+    { title: "A Formação do Território Brasileiro", src: "https://www.youtube.com/embed/KtoOt_zAgMQ" },
+    { title: "Geografia: Formação e regionalização do território brasileiro", src: "https://www.youtube.com/embed/U8scfd9ICsg" },
+    { title: "Geografia: Formação e regionalização do território brasileiro - 7º Ano", src: "https://www.youtube.com/embed/nX7yEluB09E" },
+    { title: "7º Ano - Formação do Território Brasileiro: Exploração Econômica", src: "https://www.youtube.com/embed/qvJYBM0AOBc" },
+    { title: "Regiões Brasileiras | Mudanças nas divisões", src: "https://www.youtube.com/embed/nZiCqPpBHnQ" },
+    { title: "Ocupação do espaço brasileiro", src: "https://www.youtube.com/embed/WybabiFtvvw" }
+  ],
+  "Indicadores Socioeconômicos e Demográficos": [
+    { title: "Indicadores Socioeconômicos: IDH, PIB, PNB, coeficiente de GINI", src: "https://www.youtube.com/embed/fOY8jAvvfbg" },
+    { title: "Indicadores econômicos - Brasil Escola", src: "https://www.youtube.com/embed/GqLLClc1H8g" },
+    { title: "IDH e Desenvolvimento Humano - Aula Explicativa", src: "https://www.youtube.com/embed/b4D1xp1OBY8" },
+    { title: "Índice de Gini - Desigualdade social", src: "https://www.youtube.com/embed/kNVDsZ8sUBg" },
+    { title: "Indicadores Demográficos e Sociais", src: "https://www.youtube.com/embed/WQu2MsxTy-E" },
+    { title: "Desmatamento no Brasil - Aspectos Socioambientais", src: "https://www.youtube.com/embed/7TY2H_9QO5Y" }
+  ],
+  "População, Migrações e Diversidade Cultural": [
+    { title: "Diversidade Cultural Brasileira dos Imigrantes", src: "https://www.youtube.com/embed/1fZ7PT2v9f8" },
+    { title: "MIGRAÇÕES, REFUGIADOS E DIVERSIDADE CULTURAL", src: "https://www.youtube.com/embed/8jgh8YJdj2k" },
+    { title: "O QUE É DIVERSIDADE CULTURAL? AULA COMPLETA", src: "https://www.youtube.com/embed/U-kBqPNpf14" },
+    { title: "Imigração e chegada de refugiados trazem mudanças sociais", src: "https://www.youtube.com/embed/tvOcAY2AHlE" },
+    { title: "Migração e Demografia - Aula Completa", src: "https://www.youtube.com/embed/FQWqSnSRpDc" },
+    { title: "População, Diversidade Étnico-Racial e Cultural no Brasil", src: "https://www.youtube.com/embed/8rJu8-ZOeMw" }
+  ],
+  "Estudo dos Continentes": [
     {
-      title: "Expressões Algébricas - Aula Completa",
-      src: "https://www.youtube.com/embed/TyUVBbsG8ag"
+      title: "Os Continentes da Terra",
+      src: "https://www.youtube.com/embed/Xmn979VHh8w"
     },
     {
-      title: "Álgebra para Iniciantes | Como Traduzir o Problema",
-      src: "https://www.youtube.com/embed/LTx-Jd7pyZ8"
+      title: "GEOGRAFIA DOS CONTINENTES",
+      src: "https://www.youtube.com/embed/Ph1JVwsbYwk"
+    },
+    {
+      title: "Continentes e Oceanos",
+      src: "https://www.youtube.com/embed/BHBc2YQgs_s"
+    },
+    {
+      title: "Vamos Aprender... Continentes e Oceanos",
+      src: "https://www.youtube.com/embed/THlMdO2nsx0"
+    },
+    {
+      title: "CONTINENTES para crianças",
+      src: "https://www.youtube.com/embed/l5_dcoioiB8"
+    },
+    {
+      title: "Continents of the world - Brazil School",
+      src: "https://www.youtube.com/embed/SFUq4LJ0hBU"
     }
   ],
-  "Raciocínio Numérico": [
+  "Geopolítica e Relações Internacionais": [
     {
-      title: "Desafio de Matemática Numérico [Raciocínio Lógico]",
-      src: "https://www.youtube.com/embed/2GX9nRUkOxA"
+      title: "Geopolítica e Relações Internacionais - Aula 01",
+      src: "https://www.youtube.com/embed/yXerjLuAd78"
     },
     {
-      title: "Sequências Numéricas | Matemática Básica",
-      src: "https://www.youtube.com/embed/mE6_YVkTDr0"
+      title: "Geopolítica e as Relações Internacionais - Aula 02",
+      src: "https://www.youtube.com/embed/NkbtIO2fc_4"
+    },
+    {
+      title: "Geopolítica e as Relações Internacionais - Aula N07",
+      src: "https://www.youtube.com/embed/U9mm8Q5Vl7k"
+    },
+    {
+      title: "Geopolítica hoje e Relações Internacionais",
+      src: "https://www.youtube.com/embed/t-65mtxhr40"
+    },
+    {
+      title: "GEOPOLÍTICA E RELAÇÕES INTERNACIONAIS - EJA IV - AULA N°002",
+      src: "https://www.youtube.com/embed/v7I_-iUWXdw"
+    },
+    {
+      title: "Curso de Geopolítica - Playlist",
+      src: "https://www.youtube.com/embed/videoseries?list=PLh-pzm2_vyywSECzNV65mqq6DM6PduBg_"
     }
   ],
-  "Raciocínio Estatístico": [
+  "(EF06MA26) Noção de ângulo em diferentes contextos (ângulo de visão)": [
     {
-      title: "Conceitos Estatísticos | Gráficos e Tabelas",
-      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
+      title: "Matemática: Ângulo de visão",
+      src: "https://www.youtube.com/embed/Nwd-SLIHAsg"
     },
     {
-      title: "Estatística Básica, um Começo - Aula 67",
-      src: "https://www.youtube.com/embed/HwgcoRBGwZo"
+      title: "Conhecendo os ângulos de visão e como medir ângulos",
+      src: "https://www.youtube.com/embed/QP9gY7D5Kc8"
     }
   ],
-  "Raciocínio Geométrico": [
+  "(EF08MA23) Identificar o tipo adequado de gráfico para representar dados": [
     {
-      title: "Matemática Para Concursos: Geometria Básica!",
-      src: "https://www.youtube.com/embed/gP_UtoyFn_w"
+      title: "Comparação de gráficos para representar um conjunto de dados",
+      src: "https://www.youtube.com/embed/5ffrNj2QCFM"
     },
     {
-      title: "Noções de Geometria - Matemática Básica",
-      src: "https://www.youtube.com/embed/5GZx3QJ9_Es"
+      title: "Gráfico de colunas, barras, segmentos e mais",
+      src: "https://www.youtube.com/embed/9rSTsFQH9oE"
     }
   ],
-  "Raciocínio Probabilístico": [
+  "(EM13MAT306) Funções seno e cosseno e fenômenos periódicos": [
     {
-      title: "Probabilidade | Aprenda em 13min",
-      src: "https://www.youtube.com/embed/iNCkGogNtKI"
+      title: "Função Seno e Cosseno – Fenômenos Periódicos",
+      src: "https://www.youtube.com/embed/FtER4ODBYUk"
     },
     {
-      title: "Probabilidade - Como Calcular?",
-      src: "https://www.youtube.com/embed/HWlZtfp-TKQ"
+      title: "Funções Seno e Cosseno – Trigonometria",
+      src: "https://www.youtube.com/embed/oa70Er7rgi0"
+    },
+    {
+      title: "Funções Trigonométricas: Seno e Cosseno",
+      src: "https://www.youtube.com/embed/QGpc5toFw4c"
     }
   ],
-  "Conhecimento do Currículo": [
+  "(EM13MAT302) Modelagem com funções polinomiais de 1º e 2º grau": [
     {
-      title: "Sequência Correta para Estudar os Assuntos de Matemática para o ENEM",
-      src: "https://www.youtube.com/embed/4cLxoPirr8E"
+      title: "Função do 2º Grau | Fácil e Rápido",
+      src: "https://www.youtube.com/embed/ZpW9Xb5iyt4"
     },
     {
-      title: "Matemática Básica | Tudo o que Você Precisa Saber",
-      src: "https://www.youtube.com/embed/Qiur3mzFono"
-    }
-  ],
-  "Criação e Elaboração de Problemas": [
-    {
-      title: "Problemas Aritméticos, Geométricos e Matriciais",
-      src: "https://www.youtube.com/embed/57JpwjXQ_9E"
+      title: "Função Quadrática – Aula 1",
+      src: "https://www.youtube.com/embed/IfTsMZpH_tA"
     },
     {
-      title: "Expressões Algébricas | Exercícios",
-      src: "https://www.youtube.com/embed/nUp4l3d56q4"
-    }
-  ],
-  "Proporcionalidade e Relações Matemáticas": [
-    {
-      title: "Sequências Numéricas em Exercícios [Raciocínio Lógico]",
-      src: "https://www.youtube.com/embed/oztKXOtGiCo"
-    },
-    {
-      title: "Sequências Lógicas de Números, Letras, Palavras e Figuras - Aula 1",
-      src: "https://www.youtube.com/embed/RGX-ddHvGns"
-    }
-  ],
-  "Equivalência e Igualdade": [
-    {
-      title: "Expressões Algébricas | Rápido e Fácil",
-      src: "https://www.youtube.com/embed/8NNA-8rimNs"
-    },
-    {
-      title: "Expressões Algébricas - Aula Completa",
-      src: "https://www.youtube.com/embed/xvtayc6ho-I"
-    }
-  ],
-  "Números e Notações": [
-    {
-      title: "Álgebra para Iniciantes | Como Traduzir o Problema",
-      src: "https://www.youtube.com/embed/LTx-Jd7pyZ8"
-    },
-    {
-      title: "Expressões Algébricas - Aula Completa",
-      src: "https://www.youtube.com/embed/TyUVBbsG8ag"
-    }
-  ],
-  "Funções e Polinômios": [
-    {
-      title: "Vem Aprender Álgebra Produtos Notáveis",
-      src: "https://www.youtube.com/embed/uzpzdPqzrpU"
-    },
-    {
-      title: "Funções Polinomiais - Aula Completa",
-      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
-    }
-  ],
-  "Otimização e Geometria Analítica": [
-    {
-      title: "Geometria Espacial: Cálculo de Área e Volume",
-      src: "https://www.youtube.com/embed/6PpNrCkDwcM"
-    },
-    {
-      title: "Geometria Espacial: Cálculo de Área e Volume",
-      src: "https://www.youtube.com/embed/6PpNrCkDwcM"
-    }
-  ],
-  "Medidas e Grandezas": [
-    {
-      title: "Geometria Plana | Exercícios Resolvidos",
-      src: "https://www.youtube.com/embed/Qq_iESIHSNc"
-    },
-    {
-      title: "Aula 91 - Medidas de Volume e Geometria Básica em um",
-      src: "https://www.youtube.com/embed/kaflJhi-IpE"
-    }
-  ],
-  "Geometria": [
-    {
-      title: "Noções de Geometria - Matemática Básica",
-      src: "https://www.youtube.com/embed/5GZx3QJ9_Es"
-    },
-    {
-      title: "Geometria Espacial: Cálculo de Área e Volume",
-      src: "https://www.youtube.com/embed/6PpNrCkDwcM"
-    }
-  ],
-  "Trigonometria": [
-    {
-      title: "Como Aprender Geometria? | 5 Níveis do Conhecimento Geométrico",
-      src: "https://www.youtube.com/embed/y7Iq00vC7zU"
-    },
-    {
-      title: "Trigonometria Básica | Aula Completa",
-      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
-    }
-  ],
-  "Geometria Analítica": [
-    {
-      title: "Geometria Analítica | Equações da Reta",
-      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
-    },
-    {
-      title: "Geometria Analítica | Equações da Reta",
-      src: "https://www.youtube.com/embed/8N0LtUpEB_c"
-    }
-  ],
-  "Probabilidade e Estatística": [
-    {
-      title: "Introdução à Estatística Descritiva",
-      src: "https://www.youtube.com/embed/pnpq0w7d5Mw"
-    },
-    {
-      title: "Estatística Básica, um Começo - Aula 67",
-      src: "https://www.youtube.com/embed/HwgcoRBGwZo"
-    }
-  ],
-  "Pensamento Computacional": [
-    {
-      title: "Como Interpretar e Resolver Raciocínio Lógico de Forma Simples e Fácil",
-      src: "https://www.youtube.com/embed/qbscFp0y7Jw"
-    },
-    {
-      title: "Como Interpretar e Resolver Raciocínio Lógico de Forma Simples e Fácil",
-      src: "https://www.youtube.com/embed/qbscFp0y7Jw"
+      title: "Polinômios de 2º Grau: como resolver",
+      src: "https://www.youtube.com/embed/ScZhfaGZaHQ"
     }
   ]
 };
